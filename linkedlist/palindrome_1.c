@@ -89,8 +89,10 @@ int IsPalindrome(struct Node* head){
 	for(int i=1;i<(h/2)+1;i++){
 		if(NthElement(head, i) == NthLastElement(head, i))
 			result = 1;
-		else
+		else{
 			result = 0;
+			break;
+		}
 	}
 	return result;
 		
