@@ -9,6 +9,8 @@
 
 void find_max_optimized(int array[], int length, int k){
 	//  O(nw)
+	// wont work when the max value is the 0th element in every k window
+	// FIXME
 	int max = array[0];
 	for(int i=0; i<k;i++){
 		if(max < array[i])
@@ -44,7 +46,7 @@ void find_max(int array[], int length, int k ){
 
 
 int main(){
-	int array[] = {1,2,4,5,6,3};
+	int array[] = {3,2,1,5,6,3};
 	int k = 2;
 	int length = sizeof(array)/sizeof(array[0]);
 	find_max(array, length, k);
