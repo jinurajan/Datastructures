@@ -20,7 +20,7 @@ int BinarySearch(int array[], int key, int lb , int ub){
 		return BinarySearch(array, key, midpoint+1, ub);
 	}
 	else{
-		ub = midpoint-1;
+		// ub = midpoint-1;
 		return BinarySearch(array, key, lb, midpoint-1);
 	}
 }

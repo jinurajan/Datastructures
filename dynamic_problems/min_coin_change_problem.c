@@ -45,6 +45,34 @@ int MinCoins(int coins[], int n, int V){
 	return solution[V];
 }
 
+int min_coins(int coins[], int n, int V){
+
+	int solution[V+1];
+	int indexes[V+1];
+	solution[0] = 0;
+	for(int i=0;i<V;i++){
+		solution[i] = INT_MAX;
+		indexes[i] = -1;
+	}
+	for (i=0;i<n;i++){
+		for(int j=0;j<=V;j++){
+			if(j >= coins[i]){
+				int sub_res = solution[j-coins[i]];
+				if(sub_res != INT_MAX && sub_res+1 <= solution[i]){
+					solution[i] = sub_res+1;
+					indexes[i] = j;
+				}
+			}
+
+		}
+	}
+
+}
+
+
+
+
+
 
 int main()
 {

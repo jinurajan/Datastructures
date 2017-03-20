@@ -41,6 +41,23 @@ void InorderTraversal(struct Node* node){
 	InorderTraversal(node->right);
 }
 
+void PreorderTraversal(struct Node* node){
+	if(node==NULL){
+		return;
+	}
+	printf("%d  ", node->data);
+	InorderTraversal(node->left);
+	InorderTraversal(node->right);
+}
+
+void PostorderTraversal(struct Node* node){
+	if(node==NULL){
+		return;
+	}
+	InorderTraversal(node->left);
+	InorderTraversal(node->right);
+	printf("%d  ", node->data);
+}
 
 int Search(struct Node* node, int key){
 	if(node==NULL)
@@ -107,7 +124,7 @@ struct Node* Delete(struct Node* node, int data){
 	else{
 		// one child or no child
 		if(node->left ==NULL && node->right ==NULL){
-			printf("node:%d has no child\n", );
+			printf("node:%d has no child\n", node->data);
 		}
 		else if(node->left==NULL && node->right!=NULL){
 			struct Node* temp = node->right;
@@ -152,13 +169,22 @@ int main(){
 	printf("\n");
 	Delete(root, 4);
 	InorderTraversal(root);
-	// printf("\n");
-	// Delete(root, 5);
-	// InorderTraversal(root);
-	// printf("\n");
-	// Delete(root, 2);
-	// Insert(root, 5);
-	// InorderTraversal(root);
-	// printf("\n");
+	
+
+	struct Node* root_1 = NULL;
+	root_1 = Insert(root,1);
+	root_1->right = NewNode(4);
+	root_1->left = NewNode(2);
+	root_1->left->left = NewNode(8);
+	root_1->left->right = NewNode(5);
+	root_1->left->right->right = NewNode(9);
+	root_1->left->right->left = NewNode(10);
+
+	InorderTraversal(root_1);
+	printf("\n");
+
+
+
+
 
 }

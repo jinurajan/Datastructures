@@ -11,7 +11,6 @@ int find_existance(int array[5][5], char* word){
 	for(i=0;i<5;i++){
 		for(j=0;j<5;j++){
 			// check if the first letter is the first letter to be matched first
-			// exists = 0;
 			if(array[i][j] == word[0]){
 				c+=1;
 				k=0;

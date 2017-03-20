@@ -33,6 +33,7 @@ int sum_of_higher_values(struct Node* root){
 
 
 void ReplaceNodes_method_2(struct Node* root){
+	// does not replace the leaf node with 0 
 	if(root ==NULL)
 		return;
 	if(root->right != NULL){
