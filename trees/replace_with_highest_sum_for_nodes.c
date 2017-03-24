@@ -40,24 +40,14 @@ void inorder_traverse(struct Node* root){
 	inorder_traverse(root->right);
 }
 
-void preorder_traversal(struct Node* root){
-	if(root ==NULL)
+void ReplaceWithGreaterSum(struct Node* root, int sum){
+	if(root==NULL)
 		return;
-	printf("%d ", root->data);
-	preorder_traversal(root->left);
-	preorder_traversal(root->right);
-
+	ReplaceWithGreaterSum(root->right, sum);
+	sum = sum+root->data;
+	root->data = sum;
+	ReplaceWithGreaterSum(root->left, sum);
 }
-
-void postorder_traversal(struct Node* root){
-
-	if(root ==NULL)
-		return;
-	postorder_traversal(root->left);
-	postorder_traversal(root->right);
-	printf("%d ", root->data);
-}
-
 
 
 int main(){
@@ -65,11 +55,15 @@ int main(){
 	struct Node* new_node_1 = NewNode(4);
 	struct Node* root = new_node_1;
 	root->left = NewNode(3);
-	root->right = NewNode(5);
+	root->right = NewNode(6);
 	root->left->left = NewNode(2);
 	root->left->left->left = NewNode(1);
-	root->right->left = NewNode(6);
+	root->right->left = NewNode(5);
 	root->right->right = NewNode(7);
+	inorder_traverse(root);
+	printf("\n");
+	ReplaceWithGreaterSum(root, 0);
+	inorder_traverse(root);
 
 
 	// create tree 1
