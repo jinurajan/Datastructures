@@ -44,6 +44,22 @@ int IsBST(struct Node* root){
 }
 
 
+int IsBSTUtil_1(struct Node* node, int min, int max){
+	if(node==NULL)
+		return 1;
+	if(node->data <= min || node->data >= max)
+		return 0;
+	return IsBSTUtil(node->left, min,  node->data) &&
+		   IsBSTUtil(node->right, node->data, max);
+
+}
+
+int IsBST_1(struct Node* root){
+	return IsBSTUtil_1(root, INT_MIN, INT_MAX);
+}
+
+
+
 int main(){
 
 	struct Node* new_node_1 = NewNode(4);
@@ -57,6 +73,8 @@ int main(){
 	inorder_traverse(root);
 	printf("\n************\n");
 	printf("%d\n", IsBST(root));
+	printf("\n************\n");
+	printf("%d\n", IsBST_1(root));
 	
 
 
@@ -71,6 +89,9 @@ int main(){
 	inorder_traverse(root_1);
 	printf("\n************\n");
 	printf("%d\n", IsBST(root_1));
+	printf("\n************\n");
+	printf("%d\n", IsBST_1(root_1));
+	
 	
 
 	// create tree 2
@@ -86,6 +107,9 @@ int main(){
 	inorder_traverse(root_2);
 	printf("\n************\n");
 	printf("%d\n", IsBST(root_2));
+	printf("\n************\n");
+	printf("%d\n", IsBST_1(root_2));
+	
 	
 
 }
