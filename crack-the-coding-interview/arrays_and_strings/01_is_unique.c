@@ -49,7 +49,7 @@ bool IsUniqueUsingBitVector(char str[]){
 	for(int i=0; i<strlen(str); i++){
 		int val = str[i];
 		if (char_set[val/sizeof(int)] & (1 << val % sizeof(int))){
-			printf("val %d already exists\n", val);
+			printf("val %c already exists\n", str[i]);
 			return false;
 		}
 		char_set[val/sizeof(int)] |= 1 << val % sizeof(int);
@@ -68,7 +68,7 @@ bool IsUniqueUsingBitVectorUsingUnsignedInt(char str[]){
 	for(int i=0; i<strlen(str); i++){
 		unsigned int val = (unsigned int)str[i];
 		if (char_set[val/sizeof(unsigned int)] & (1 << val % sizeof(unsigned int))){
-			printf("val %d already exists\n", val);
+			printf("val %c already exists\n", str[i]);
 			return false;
 		}
 		char_set[val/sizeof(unsigned int)] |= 1 << val % sizeof(unsigned int);
@@ -79,15 +79,43 @@ bool IsUniqueUsingBitVectorUsingUnsignedInt(char str[]){
 }
 
 
+bool IsUniqueUsingAnInteger(char str[]){
+	if (strlen(str) > 128){
+		return false;
+	}
+	int checker = 0;
+	for (int i=0; i <strlen(str); i++){
+		int val = str[i];
+		if (checker & (1 << val)){
+			printf("val %c already exists\n", str[i]);
+			return false;
+		}
+		checker |= 1 << val;
+	}
+	return true;
+}
+
 int main(){
 	char str[] = "abcde";
+	char str1[] = "abcda";
 	int result = IsUniqueUsingArray(str);
+	int result1 = IsUniqueUsingArray(str1);
 	printf("IsUniqueUsingArray(%s) is %d \n", str, result);
+	printf("IsUniqueUsingArray(%s) is %d \n", str1, result1);
 
 	int bitresult = IsUniqueUsingBitVector(str);
+	int bitresult1 = IsUniqueUsingBitVector(str1);
 	printf("IsUniqueUsingBitVector(%s) is %d \n", str, bitresult);
+	printf("IsUniqueUsingBitVector(%s) is %d \n", str1, bitresult1);
 
 	int bitresultchar = IsUniqueUsingBitVectorUsingUnsignedInt(str);
+	int bitresultchar1 = IsUniqueUsingBitVectorUsingUnsignedInt(str1);
 	printf("IsUniqueUsingBitVectorUsingUnsignedInt(%s) is %d \n", str, bitresultchar);
+	printf("IsUniqueUsingBitVectorUsingUnsignedInt(%s) is %d \n", str1, bitresultchar1);
+
+	int intresultchar = IsUniqueUsingAnInteger(str);
+	int intresultchar1 = IsUniqueUsingAnInteger(str1);
+	printf("IsUniqueUsingAnInteger(%s) is %d \n", str, intresultchar);
+	printf("IsUniqueUsingAnInteger(%s) is %d \n", str1, intresultchar1);
 }
 

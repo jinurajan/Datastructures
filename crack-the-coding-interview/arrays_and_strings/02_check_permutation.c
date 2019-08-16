@@ -97,6 +97,11 @@ int main(){
 	int sol2_result = Solution2(str1, str2);
 	printf("Solution2(%s, %s) is %d \n", str1, str2, sol2_result);
 
+	char str1[] = "abcde";
+	char str2[] = "edcba";
+	int sol2_result = Solution2(str1, str2);
+	printf("Solution2(%s, %s) is %d \n", str1, str2, sol2_result);
+
 	int sol1_result = Solution1(str1, str2);
 	printf("Solution1(%s, %s) is %d \n", str1, str2, sol1_result);
 
