@@ -52,10 +52,12 @@ void LeftToRightTraversal(struct Node* root){
 	}
 }
 
+/*
 		5
 	3		7
 1	  4   6   8
 
+*/
 
 
 

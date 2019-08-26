@@ -260,6 +260,20 @@ void TestLength(){
 }
 
 
+void TestLastNodeDeletion(){
+	struct Node* head = NULL;
+	head = NewNode(1);
+	head->next = NewNode(2);
+	head->next->next = NewNode(3);
+	struct Node* last_node = head->next->next;
+	PrintLList(head);
+	free(&(head->next->next));
+	PrintLList(head);
+
+
+}
+
+
  int main(void){
  	TestAppendIteration();
  	TestAppendRecursion();
@@ -267,5 +281,6 @@ void TestLength(){
  	TestInsertAtIndex();
  	TestDeleteIteration();
  	TestLength();
+ 	//TestLastNodeDeletion();
  	return 0;
  }
