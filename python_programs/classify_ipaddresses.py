@@ -3,7 +3,7 @@ Write a script to read n ip addresses from the keyboard and classify them into 6
 """
 
 
-def classify_ip(ipaddresses):
+def classify_ip(*ipaddresses):
     hash_map = {"valid_ips": [], "invalid_ips": [],
                 "classA": [], "classB": [],
                 "classC": [], "classD": [],
@@ -12,37 +12,44 @@ def classify_ip(ipaddresses):
     for ipaddress in ipaddresses:
         if is_valid_ipaddress(ipaddress):
             hash_map["valid_ips"].append(ipaddress)
-            ip_components = ipaddress.split(".")
-            component = int(ip_components[0])
-            if component >= 1 and component <= 126:
-                hash_map["classA"].append(ipaddress)
-            elif component >= 127 and component <= 191:
-                hash_map["classB"].append(ipaddress)
-            elif component >= 192 and component <= 223:
-                hash_map["classC"].append(ipaddress)
-            elif component >= 224 and component <= 239:
-                hash_map["classD"].append(ipaddress)
-            else:
-                hash_map["classE"].append(ipaddress)
+            octets = ipaddress.split(".")
+            class_val = get_ip_class(octets)
+            if class_val is not None:
+                hash_map[class_val].append(ipaddress)
         else:
             hash_map["invalid_ips"].append(ipaddress)
 
     return hash_map
 
 
+def get_ip_class(octets):
+    component = int(octets[0])
+    if component >= 1 and component <= 126:
+        return "classA"
+    elif component >= 127 and component <= 191:
+        return "classB"
+    elif component >= 192 and component <= 223:
+        return "classC"
+    elif component >= 224 and component <= 239:
+        return "classD"
+    elif component >= 240 and component <= 254:
+        return "class E"
+    else:
+        pass
+
+
 def is_valid_ipaddress(ipaddress):
-    ip_components = ipaddress.split(".")
-    if len(ip_components) != 4:
+    octets = ipaddress.split(".")
+    if len(octets) != 4:
         return False
-    valid = True
-    for each in ip_components:
-        try:
+    for each in octets:
+        if each.isdigit():
             val = int(each)
             if val < 0 or val > 255:
-                valid = False
-        except ValueError:
+                return False
+        else:
             return False
-    return valid
+    return True
 
 
 if __name__ == "__main__":
@@ -54,4 +61,4 @@ if __name__ == "__main__":
         ip = raw_input()
         ip_array.append(ip)
         i += 1
-    print classify_ip(ip_array)
+    print classify_ip(*ip_array)
