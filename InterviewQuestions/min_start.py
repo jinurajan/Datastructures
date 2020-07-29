@@ -25,7 +25,7 @@ If the starting value is 4, running sums are [7,1,6,4,5]. This is the minimum st
 """
 
 
-def minStart(arr):
+def minStartBF(arr):
     # idea is that to have the
     if not arr:
         return 0
@@ -62,6 +62,30 @@ def minStart(arr):
     return result
 
 
+def minStart(arr):
+    x = 0
+    l = len(arr)
+    if l == 0:
+        return 1
+    else:
+        running_sum = 0
+        min_value = 0
+        for i in range(l):
+            if arr[i] < min_value:
+                min_value = arr[i]
+            if running_sum + arr[i] > 0:
+                running_sum = arr[i] + running_sum
+            else:
+                # some value is negative.we need to find the compliment value to meet the sum as 1
+                # absolute value can be made by * -1 since arr[i] + running_sum is -1
+                x = (arr[i] + running_sum) * -1 + 1 + x
+                running_sum = 1
+        if x == 0:
+            # sum of array is 0
+            # absolute value can be made  by x = (min(arr) + 1) * -1
+            x = 1 - min_value + 1
+        return x
+
 if __name__ == '__main__':
     arr = [-5, 4, -2, 3, 1, -1, -6, -1, 0, 5]  # -> 8 diffs are [-1, 2, 1, 4, 0, -7, -1, 5] -7+x = 1 -> x==8
     arr1 = [-5, 4, -2, 3, 1]  # -> diffs are [-1,2,1,4] -1+x = 1 x should be atleast 2
@@ -71,11 +95,11 @@ if __name__ == '__main__':
     arr5 = [234578, 34567, 789350]  # -> [269145,823917] if diff min is +ve return 1
     arr6 = [-237652, -141413, -141412]  # -> [-379065, -282825] -379065+x = 1 x -> 379066
     arr7 = [i if i % 3 == 0 else -i for i in xrange(100000)]
-    print minStart(arr)
-    print minStart(arr1)
-    print minStart(arr2)
-    print minStart(arr3)
-    print minStart(arr4)
-    print minStart(arr5)
-    print minStart(arr6)
-    print minStart(arr7)
+    print "minStart of {} is {}:".format(arr, minStart(arr))
+    print "minStart of {} is {}:".format(arr1, minStart(arr1))
+    print "minStart of {} is {}:".format(arr2, minStart(arr2))
+    print "minStart of {} is {}:".format(arr3, minStart(arr3))
+    print "minStart of {} is {}:".format(arr4, minStart(arr4))
+    print "minStart of {} is {}:".format(arr4, minStart(arr5))
+    print "minStart of {} is {}:".format(arr5, minStart(arr6))
+    print "minStart of {} is {}:".format(arr6, minStart(arr7))

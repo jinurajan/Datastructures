@@ -32,34 +32,99 @@ Follow up:
 
 If this function is called many times, how would you optimize it?
 """
+
 mem_map = {0: 0, 1: 1, 2: 1}
 
 
-class Solution(object):
+class Solution1(object):
+    # Best for runtime with memoization
     def hammingWeight(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        if 0 <= n <= 2:
+        if n <= 2:
             return mem_map[n]
         else:
-            # if n // 2 not in mem_map:
-            #     mem_map[n // 2] = self.hammingWeight(n // 2)
-            # if n - (n * (n // 2)) not in mem_map:
-            #     mem_map[n - (n * (n // 2))] = self.hammingWeight(n - (n * (n // 2)))
-            # mem_map[n] = mem_map[n // 2] + mem_map[n - (n * (n // 2))]
-            # return mem_map[n]
+            if n in mem_map:
+                return mem_map[n]
+            mem_map[n] = n % 2 + self.hammingWeight(n // 2)
+        return mem_map[n]
 
+
+class Solution2(object):
+    # solution with while loop
+    def hammingWeight(self, n):
+        if n == 0:
+            return 0
+        elif n <= 2:
+            return 1
+        else:
+            no_of_bits = 0
+            while n > 0:
+                no_of_bits += n % 2
+                n = n // 2
+            return no_of_bits
+
+
+class Solution3(object):
+    # Solution with recursion
+    def hammingWeight(self, n):
+        if n == 0:
+            return 0
+        elif n <= 2:
+            return 1
+        else:
+            return n % 2 + self.hammingWeight(n // 2)
+
+
+class Solution4(object):
+    # solution with recursion without memoization
+    def hammingWeight(self, n):
+        if n == 0:
+            return 0
+        elif n <= 2:
+            return 1
+        else:
+            if n in mem_map:
+                return mem_map[n]
+            mem_map[n] = n % 2 + self.hammingWeight(n // 2)
+        return mem_map[n]
 
 
 if __name__ == "__main__":
-    print Solution().hammingWeight(0)
-    print Solution().hammingWeight(1)
-    print Solution().hammingWeight(2)
-    print Solution().hammingWeight(3)
-    print Solution().hammingWeight(4)
-    print Solution().hammingWeight(5)
-    print Solution().hammingWeight(6)
-    print Solution().hammingWeight(7)
+    # print "number of bits in {} is {}".format(Solution().hammingWeight(0))
+    # print Solution().hammingWeight(1)
+    # print Solution().hammingWeight(2)
+    # print Solution().hammingWeight(3)
+    # print Solution().hammingWeight(4)
+    # print Solution().hammingWeight(5)
+    # print Solution().hammingWeight(6)
+    # print Solution().hammingWeight(7)
+    solution1 = Solution1()
+    solution2 = Solution2()
+    solution3 = Solution3()
+    solution4 = Solution4()
+    for i in range(16):
+        print "number of bits in {} is {}".format(i, solution1.hammingWeight(i))
+    print "************** Solution 2 *************"
+    for i in range(16):
+        print "number of bits in {} is {}".format(i, solution2.hammingWeight(i))
+    # scale testing
+    from time import time
+    i = 12345678901234567
+    current_time = time()
+    print "number of bits in {} is {}".format(i, solution1.hammingWeight(i))
+    print "time taken to compute number of bits in {} in solution 1 is:{}".format(
+        i, float(time() - current_time))
 
+    current_time = time()
+    print "number of bits in {} is {}".format(i, solution2.hammingWeight(i))
+    print "time taken to compute number of bits in {} in solution 2 is:{}".format(
+        i, float(time() - current_time))
+
+    current_time = time()
+    print "number of bits in {} is {}".format(i, solution3.hammingWeight(i))
+    print "time taken to compute number of bits in {} in solution 3 is:{}".format(
+        i, float(time() - current_time))
+
+    current_time = time()
+    print "number of bits in {} is {}".format(i, solution4.hammingWeight(i))
+    print "time taken to compute number of bits in {} in solution 4 is:{}".format(
+        i, float(time() - current_time))
