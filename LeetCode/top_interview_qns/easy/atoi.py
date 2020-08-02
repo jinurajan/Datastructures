@@ -48,10 +48,12 @@ from math import pow
 
 
 def is_invalid_char(val):
-    if val == ' ':
+    if val == ' ' or val == '.':
         return True
+    elif val == '+' or val == '-':
+        return False
     val = ord(val)
-    if (val >= 65 and val <= 90) or (val >= 97 and val <= 122) or val == '.':
+    if (val >= 65 and val <= 90) or (val >= 97 and val <= 122):
         return True
     return False
 
@@ -66,25 +68,28 @@ class Solution(object):
             return 0
         left = 0
         right = len(s) - 1
-        while s[left] == ' ':
-            left += 1
+        while left < len(s) - 1:
+            if s[left] == ' ':
+                left += 1
+            else:
+                break
         if is_invalid_char(s[left]):
             return 0
-        while left < right:
-            invalid_left = is_invalid_char(s[left])
-            invalid_right = is_invalid_char(s[right])
-            if invalid_left:
-                left += 1
-            if invalid_right:
+        right = left
+        while right < len(s) - 1:
+            if is_invalid_char(s[right]):
                 right -= 1
-            if not invalid_left and not invalid_right:
                 break
-        flag = 1
+            right += 1
         no_of_base_10 = right - left
+        flag = 1
         if s[left] == '-':
             flag = -1
             no_of_base_10 -= 1
             left += 1
+        elif s[left] == '+':
+            left += 1
+            no_of_base_10 -= 1
         result = 0
         while left <= right:
             result += int((ord(s[left]) - ord('0')) * pow(10, no_of_base_10))
@@ -99,9 +104,13 @@ class Solution(object):
         return int(result)
 
 if __name__ == "__main__":
-    print Solution().myAtoi("42")
-    print Solution().myAtoi("   -42")
-    print Solution().myAtoi("4193 with words")
-    print Solution().myAtoi("words and 987")
-    print Solution().myAtoi("-91283472332")
-    print Solution().myAtoi("3.14159")
+    # print Solution().myAtoi("42")
+    # print Solution().myAtoi("   -42")
+    # print Solution().myAtoi("4193 with words")
+    # print Solution().myAtoi("words and 987")
+    # print Solution().myAtoi("-91283472332")
+    # print Solution().myAtoi("3.14159")
+    # print Solution().myAtoi("+")
+    # print Solution().myAtoi("+1")
+    # print Solution().myAtoi(" ")
+    print Solution().myAtoi("+-1")
