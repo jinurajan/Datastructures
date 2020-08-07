@@ -57,7 +57,6 @@ class WordDictionary(object):
         :type word: str
         :rtype: bool
         """
-        # import pdb; pdb.set_trace()
         return self.search_pattern(self.root, word)
 
     def search_pattern(self, node, word):
