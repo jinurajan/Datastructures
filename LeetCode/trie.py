@@ -18,12 +18,10 @@ Note:
 You may assume that all inputs are consist of lowercase letters a-z.
 All inputs are guaranteed to be non-empty strings.
 """
-
-
 class TrieNode(object):
     def __init__(self):
-        self.children = [None] * 26
-        self.is_end_of_word = False
+        self.children = [0] * 26
+        self.end_of_word = False
 
 
 class Trie(object):
@@ -32,13 +30,11 @@ class Trie(object):
         """
         Initialize your data structure here.
         """
-        self.root = self.getNode()
-
-    def getNode(self):
+        self.root = self.get_node()
+    
+    def get_node(self):
         return TrieNode()
-
-    def char_to_index(self, char):
-        return ord(char) - ord('a')
+        
 
     def insert(self, word):
         """
@@ -47,12 +43,13 @@ class Trie(object):
         :rtype: None
         """
         root = self.root
-        for i in range(len(word)):
-            index = self.char_to_index(word[i])
+        for w in word:
+            index = ord(w) - ord('a')
             if not root.children[index]:
-                root.children[index] = self.getNode()
+                root.children[index] = self.get_node()
             root = root.children[index]
-        root.is_end_of_word = True
+        root.end_of_word = True
+        
 
     def search(self, word):
         """
@@ -61,12 +58,16 @@ class Trie(object):
         :rtype: bool
         """
         root = self.root
-        for i in range(len(word)):
-            index = self.char_to_index(word[i])
-            if not root.children[index] or root.is_end_of_word:
+        for w in word:
+            index = ord(w) - ord('a')
+            if not root.children[index]:
                 return False
             root = root.children[index]
-        return root is not None and root.is_end_of_word
+        if root and root.end_of_word:
+            return True
+        else:
+            return False
+        
 
     def startsWith(self, prefix):
         """
@@ -75,62 +76,72 @@ class Trie(object):
         :rtype: bool
         """
         root = self.root
-        for i in range(len(prefix)):
-            index = self.char_to_index(prefix[i])
+        for w in prefix:
+            index = ord(w) - ord('a')
             if not root.children[index]:
                 return False
             root = root.children[index]
-        return True
+        if root:
+            return True
+        return False
+            
+        
 
 
 # Your Trie object will be instantiated and called as such:
-# expected = [False,True,False,False,False,False,False,True,True,False,True,True,False,False,False,True,True,True]
-
 # obj = Trie()
-# obj.insert("app")
-# obj.insert("apple")
-# obj.insert("beer")
-# obj.insert("add")
-# obj.insert("jam")
-# obj.insert("rental")
-# i = 0
-# print obj.search("apps"), "is equal to", expected[i]
-# i += 1
-# print obj.search("app"), "is equal to", expected[i]
-# i += 1
-# import pdb; pdb.set_trace()
-# print obj.search("add"), "is equal to", expected[i]
-# i += 1
-# print obj.search("applepie"), "is equal to", expected[i]
-# i += 1
-# print obj.search("rest"), "is equal to", expected[i]
-# i += 1
-# print obj.search("jan"), "is equal to", expected[i]
-# i += 1
-# print obj.search("rent"), "is equal to", expected[i]
-# i += 1
-# print obj.search("beer"), "is equal to", expected[i]
-# i += 1
-# print obj.search("jam"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("apps"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("app"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("add"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("applepie"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("rest"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("jan"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("rent"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("beer"), "is equal to", expected[i]
-# i += 1
-# print obj.startsWith("jam"), "is equal to", expected[i]
-# i += 1
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
+
+
+# Your Trie object will be instantiated and called as such:
+expected = [False,True,False,False,False,False,False,True,True,False,True,True,False,False,False,True,True,True]
+
+obj = Trie()
+obj.insert("app")
+obj.insert("apple")
+obj.insert("beer")
+obj.insert("add")
+obj.insert("jam")
+obj.insert("rental")
+i = 0
+print obj.search("apps"), "is equal to", expected[i]
+i += 1
+print obj.search("app"), "is equal to", expected[i]
+i += 1
+print obj.search("add"), "is equal to", expected[i]
+i += 1
+print obj.search("applepie"), "is equal to", expected[i]
+i += 1
+print obj.search("rest"), "is equal to", expected[i]
+i += 1
+print obj.search("jan"), "is equal to", expected[i]
+i += 1
+print obj.search("rent"), "is equal to", expected[i]
+i += 1
+print obj.search("beer"), "is equal to", expected[i]
+i += 1
+print obj.search("jam"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("apps"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("app"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("add"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("applepie"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("rest"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("jan"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("rent"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("beer"), "is equal to", expected[i]
+i += 1
+print obj.startsWith("jam"), "is equal to", expected[i]
+i += 1
 
 obj = Trie()
 ops = ["insert","search","search","startsWith","startsWith","insert","search","startsWith","insert","search","startsWith"]
@@ -144,5 +155,3 @@ for i in range(len(ops)):
         print obj.search(inputs[i][0]) == outputs[i]
     else:
         print obj.startsWith(inputs[i][0]) == outputs[i]
-
-

@@ -19,10 +19,11 @@ Note:
 You may assume that all words are consist of lowercase letters a-z.
 """
 
+
 class TrieNode(object):
     def __init__(self):
         self.children = [None] * 26
-        self.is_end_of_word = False
+        self.end_of_word = False
 
 
 class WordDictionary(object):
@@ -31,13 +32,10 @@ class WordDictionary(object):
         """
         Initialize your data structure here.
         """
-        self.root = self.getNode()
+        self.root = self.get_node()
 
-    def getNode(self):
+    def get_node(self):
         return TrieNode()
-
-    def char_to_int(self, char):
-        return ord(char) - ord('a')
 
     def addWord(self, word):
         """
@@ -46,29 +44,36 @@ class WordDictionary(object):
         :rtype: None
         """
         root = self.root
-        for i in range(len(word)):
-            index = self.char_to_int(word[i])
+        for w in word:
+            index = ord(w) - ord('a')
             if not root.children[index]:
-                root.children[index] = self.getNode()
+                root.children[index] = self.get_node()
             root = root.children[index]
-        root.is_end_of_word = True
+        root.end_of_word = True
 
-    def search(self, word):
+    def search(self, word, root=None):
         """
         Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
         :type word: str
         :rtype: bool
         """
-        root = self.root
+        # import pdb; pdb.set_trace()
+        return self.search_pattern(self.root, word)
+
+    def search_pattern(self, node, word):
+        if not word and node.end_of_word:
+            return True
         for i in range(len(word)):
             if word[i] == '.':
-                # check if children is not empty
-                continue
-            index = self.char_to_int(word[i])
-            if not root.children[index]:
+                new_word = ''.join(word[i + 1:])
+                return any([self.search_pattern(each, new_word) for each in node.children if each])
+            index = ord(word[i]) - ord('a')
+            if not node.children[index]:
                 return False
-            root = root.children[index]
-        return root.is_end_of_word
+            node = node.children[index]
+        if node.end_of_word:
+            return True
+        return False
 
 
 # Your WordDictionary object will be instantiated and called as such:
@@ -76,6 +81,9 @@ obj = WordDictionary()
 obj.addWord("bad")
 obj.addWord("dad")
 obj.addWord("mad")
-print obj.search("pad")
-print obj.search(".ad")
-print obj.search("b..")
+print obj.search("pad") == False
+print obj.search(".ad") == True
+print obj.search("b..") == True
+print obj.search("p..") == False
+print obj.search("...") == True
+print obj.search("p.k") == False
