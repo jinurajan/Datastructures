@@ -28,6 +28,8 @@ class Solution(object):
         :type head: ListNode
         :rtype: None Do not return anything, modify head in-place instead.
         """
+        if not head or not head.next:
+            return head
         slow_ptr = head
         fast_ptr = slow_ptr.next
 
@@ -80,6 +82,3 @@ Solution().printLL(head)
 LL.next.next.next.next = ListNode(val=5)
 head = Solution().reorderList(LL)
 Solution().printLL(head)
-
-
-print Solution().reorderList(LL)
