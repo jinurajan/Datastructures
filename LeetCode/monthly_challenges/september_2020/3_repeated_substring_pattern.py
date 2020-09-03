@@ -65,5 +65,3 @@ print Solution1().repeatedSubstringPattern("aba") == False
 print Solution1().repeatedSubstringPattern("a") == False
 print Solution1().repeatedSubstringPattern("ababba") == False
 print Solution1().repeatedSubstringPattern("aabaaba") == False
-
-
