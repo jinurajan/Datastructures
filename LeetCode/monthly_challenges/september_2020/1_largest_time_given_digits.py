@@ -41,11 +41,11 @@ class Solution(object):
         # import pdb; pdb.set_trace()
         no_gt_5 = self.check_gt_5_numbers(hash_map)
         if no_gt_5 > 2:
-            # we can have only 2 one in 2nd H and one in 2nd M in HH:MM format. 
+            # we can have only 2 one in 2nd H and one in 2nd M in HH:MM format.
             return ""
         # print no_gt_5
         if no_gt_5 > 1:
-            # HH should have one of the greater number
+            # HH should have one of the greater number in second position
             a = self.dfs(hash_map, 1)
             if a is None:
                 return ""
