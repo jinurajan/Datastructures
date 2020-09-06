@@ -60,14 +60,11 @@ class Solution(object):
         neighbors = [(i, j-1), (i, j+1), (i-1, j), (i+1, j),
                      (i-1, j+1), (i+1, j-1), (i-1, j-1), (i+1, j+1)]
         count = 0
-        print("neighbors of ({}, {}) are".format(i, j))
         for pair in neighbors:
             if pair[0] < 0 or pair[1] < 0 or pair[0] >= len(board) or pair[1] >= len(board[i]):
                 continue
             else:
-                print((pair[0], pair[1])),
                 count += board[pair[0]][pair[1]]
-            print()
         return count
 
 i = [[0, 1, 0], [0, 0, 1], [1, 1, 1], [0, 0, 0]]
