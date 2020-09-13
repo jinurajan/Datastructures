@@ -56,6 +56,13 @@ class Solution(object):
 
                 
 
+class Solution1(object):
+    def minDiffInBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        
        
 
 
