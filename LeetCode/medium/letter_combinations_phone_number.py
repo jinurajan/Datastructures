@@ -48,3 +48,4 @@ class Solution(object):
 
 # print Solution().letterCombinations("23")
 print Solution().letterCombinations("234")
+# print Solution().letterCombinations("2345")
