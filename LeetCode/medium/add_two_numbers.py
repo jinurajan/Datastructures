@@ -16,46 +16,7 @@ class ListNode(object):
         self.val = x
         self.next = None
 
-
 class Solution(object):
-    # def addTwoNumbers(self, l1, l2):
-    #     """
-    #     :type l1: ListNode
-    #     :type l2: ListNode
-    #     :rtype: ListNode
-    #     """
-    #     len1 = self.length(l1)
-    #     len2 = self.length(l2)
-    #     if len1 > len2:
-    #         l2 = self.pad_len(l2, len1 - len2)
-    #     else:
-    #         l1 = self.pad_len(l1, len2 - len1)
-    #     head = None
-    #     tail = None
-    #     remainder = 0
-    #     quotient = 0
-    #     while l1 is not None and l2 is not None:
-    #         sum_val = l1.val + l2.val + remainder
-    #         quotient = sum_val % 10
-    #         remainder = sum_val / 10
-    #         if head is None:
-    #             head = ListNode(quotient)
-    #             tail = head.next
-    #         else:
-    #             if tail is None:
-    #                 head.next = ListNode(quotient)
-    #                 tail = head.next
-    #             else:
-    #                 tail.next = ListNode(quotient)
-    #         l1 = l1.next
-    #         l2 = l2.next
-    #     if remainder:
-    #         if tail is None:
-    #             head.next = ListNode(remainder)
-    #         else:
-    #             # tail = tail.next
-    #             tail.next = ListNode(remainder)
-    #     return head
 
     def pad_len(self, head, pad_len):
         node = head
