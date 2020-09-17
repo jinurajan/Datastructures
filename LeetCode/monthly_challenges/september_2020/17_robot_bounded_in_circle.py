@@ -76,16 +76,58 @@ class Solution1(object):
             else:
                 dx, dy = dy, -dx
 
-        return (x, y) == (0, 0) or (x, y) == (0, 1)
+        return (x, y) == (0, 0) or (dx, dy) != (0, 1)
+
+
+
+class Solution2(object):
+    def isRobotBounded(self, instructions):
+        """
+        :type instructions: str
+        :rtype: bool
+        """
+        # 0=N, 1=E, 2=S, 3=W
+        direction = 0
+        indices = [0,0]
+        for i in instructions:
+            # spots.add(spot)
+            if i == 'L':
+                direction = (direction-1) %4
+            if i == 'R':
+                direction = (direction+1) %4
+            if i == 'G':
+                if direction == 0:
+                    indices = [indices[0], indices[1]+1]
+                if direction == 1:
+                    indices = [indices[0]+1, indices[1]]
+                if direction == 2:
+                    indices = [indices[0], indices[1]-1]
+                if direction == 3:
+                    indices = [indices[0]-1, indices[1]]    
+        if indices == [0,0] or direction != 0:
+            return True
+        return False
+
+
 
 
 print Solution().isRobotBounded("GGLLGG") == True
 print Solution().isRobotBounded("GG") == False
-print Solution().isRobotBounded("GL")
+print Solution().isRobotBounded("GL") == True
+print Solution1().isRobotBounded("LLGRL") == True
 
 print Solution1().isRobotBounded("GGLLGG") == True
 print Solution1().isRobotBounded("GG") == False
-print Solution1().isRobotBounded("GL")
+print Solution1().isRobotBounded("GL") == True
+print Solution1().isRobotBounded("LLGRL") == True
+
+
+print Solution2().isRobotBounded("GGLLGG") == True
+print Solution2().isRobotBounded("GG") == False
+print Solution2().isRobotBounded("GL") == True
+print Solution2().isRobotBounded("LLGRL") == True
+
+
 
 
 
