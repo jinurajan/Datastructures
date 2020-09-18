@@ -30,7 +30,6 @@ class Solution1(object):
         return self.reverse(None, head, head.next)
     
     def reverse(self, prev, current, nxt):
-        print prev.val if prev else None, current.val, nxt.val if nxt else None
         if current.next is None:
             current.next = prev
             return current
