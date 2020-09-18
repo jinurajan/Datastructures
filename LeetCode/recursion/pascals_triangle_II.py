@@ -105,7 +105,7 @@ class Solution1(object):
 
 print Solution().getRow(0)
 print Solution().getRow(1)
-print Solution().getRow(2)
+print Solution().getRow(2) 
 print Solution().getRow(3)
 print Solution().getRow(4)
 print Solution().getRow(5)
