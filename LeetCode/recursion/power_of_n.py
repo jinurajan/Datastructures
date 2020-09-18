@@ -137,18 +137,16 @@ class Solution(object):
             if n % 2 == 1:
                 result *= pos * float(x)
             self.mem[n] = result
-        return pow(x, n)
+        return pow(float(x), n)
 
 
 
-
-
-# print Solution().myPow(2, 0)
-# print Solution().myPow(2, 1)
+print Solution().myPow(2, 0)
+print Solution().myPow(2, 1)
 print Solution().myPow(2, 2)
-# print Solution().myPow(2, 3)
-# print Solution().myPow(2, 4)
-# print Solution().myPow(2, 5)
+print Solution().myPow(2, 3)
+print Solution().myPow(2, 4)
+print Solution().myPow(2, 5)
 print Solution().myPow(2, -2)
 
 print Solution().myPow(0.00001, 2147483647)

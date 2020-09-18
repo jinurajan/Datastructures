@@ -25,6 +25,69 @@ class TreeNode(object):
         self.val = val
         self.left = left
         self.right = right
+
+
+class Solution3(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        
+        q = [3]  h =0
+        loop 1 (while):
+            nodes = 1
+            h = 1
+            while nodes > 0: loop1.1
+                node = 3 q = []
+                q = [9, 20]
+                nodes = 0
+        loop 2 (while):
+            nodes = 2
+            h = 2
+            while nodes > 0 loop 2.1
+                node = 9, q [20]
+                nodes = 1
+
+            while nodes > 0 loop 2.2
+                node = 20 q = []
+                q = [15, 7]
+                nodes = 0
+        loop 3 (while)
+            nodes = 2
+            h = 3
+            while nodes > 0 loop 3.1
+                node = 15 q [7]
+                nodes = 1
+
+            while nodes > 0 loop 3.2
+                node = 7 q []
+                nodes = 0
+
+        loop 4 (while)
+            nodes = 0
+            return h
+        """
+        if root is None:
+            return 0
+
+        q = []
+        q.append(root)
+        height = 0
+        while True:
+            nodes = len(q)
+            if nodes == 0:
+                return height
+            height += 1
+            while nodes > 0:
+                node = q[0]
+                q.pop(0)
+                if node.left:
+                    q.append(node.left)
+                if not node.right:
+                    q.append(node.right)
+                nodes -= 1
+
+
 class Solution2(object):
     def maxDepth(self, root):
         """
@@ -79,11 +142,14 @@ root.right.right = TreeNode(7)
 root.right.left = TreeNode(15)
 
 print Solution().maxDepth(root)
+print Solution2().maxDepth(root)
 
 root = TreeNode(1)
 root.left = TreeNode(2)
 print Solution().maxDepth(root)
 print Solution1().maxDepth(root)
+
+
 
 
 
