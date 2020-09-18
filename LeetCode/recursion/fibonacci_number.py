@@ -37,7 +37,7 @@ def fibonacci_using_golden_ratio(n):
     if n < 2:
         return n
     gr = 1.618034
-    return floor((pow(gr, n) - pow((1-gr), n)) / sqrt(5))
+    return int(floor((pow(gr, n) - pow((1-gr), n)) / sqrt(5)))
 
 
 
