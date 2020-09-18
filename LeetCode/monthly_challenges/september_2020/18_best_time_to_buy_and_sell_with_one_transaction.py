@@ -25,16 +25,16 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
-        if not prices:
-            return 0
         n = len(prices)
+        if n <= 1:
+            return 0
         result = [0]*n
         min_stock_price = prices[0]
         for i in range(1, n):
             result[i] = max(result[i-1], prices[i] - min_stock_price)
             if min_stock_price > prices[i]:
                 min_stock_price = prices[i]
-        return max(result)
+        return result[-1]
 
 
 
@@ -44,9 +44,9 @@ class Solution1(object):
         :type prices: List[int]
         :rtype: int
         """
-        if not prices:
-            return 0
         n = len(prices)
+        if n <= 1:
+            return 0
         max_profit = 0
         min_stock_price = prices[0]
         for i in range(1, n):
