@@ -3,6 +3,7 @@
 2. Implement fibonacci using memoization
 
 """
+from math import ceil, sqrt, floor
 
 def fibonacci_with_recursion(n):
     if n < 2:
@@ -32,7 +33,15 @@ def fibonacci_using_memoization(n):
     return result
 
 
+def fibonacci_using_golden_ratio(n):
+    if n < 2:
+        return n
+    gr = 1.618034
+    return floor((pow(gr, n) - pow((1-gr), n)) / sqrt(5))
+
+
 
 print fibonacci_with_recursion(6)
 print fibonacci_without_recursion(6)
 print fibonacci_using_memoization(6)
+print fibonacci_using_golden_ratio(6)
