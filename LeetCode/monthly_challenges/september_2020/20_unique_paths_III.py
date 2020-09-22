@@ -39,7 +39,7 @@ Note:
 
 1 <= grid.length * grid[0].length <= 20
 """
-class Solution1(object):
+class Solution(object):
     def uniquePathsIII(self, grid):
         """
         :type grid: List[List[int]]
@@ -52,6 +52,8 @@ class Solution1(object):
         1. find starting indices ie 1
         2. count the number of zeros to traverse to
         use dfs and increment paths when we reach 2 and we have covered all zeros
+        mark visited indices as -2 to avoid calculating duplicate paths
+        revert it back once one with one starting point
         """
         total_zeros = 0
         self.total_paths = 0
@@ -82,4 +84,3 @@ class Solution1(object):
 
 
 print(Solution().uniquePathsIII([[1,0,0,0],[0,0,0,0],[0,0,2,-1]]))
-print(Solution1().uniquePathsIII([[1,0,0,0],[0,0,0,0],[0,0,2,-1]]))
