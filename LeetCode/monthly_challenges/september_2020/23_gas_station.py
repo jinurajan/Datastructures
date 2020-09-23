@@ -88,15 +88,55 @@ class Solution(object):
         :type gas: List[int]
         :type cost: List[int]
         :rtype: int_
+        
+        [1, 2, 3, 4, 5]
+        [3, 4, 5, 1, 2]
+
+        sum(gas) = 15 sum(cost) = 15
+        
+        loop 1
+        ------
+
+        gas_tank = 0 start_index = 0
+        i = 0
+        gas_tank = 1-3 = -2
+        start_index = 1
+        gas_tank = 0
+
+        loop 2
+        ------
+        i = 1
+        gas_tank = -2
+        start_index = 2
+        gas_tank = 0
+
+        loop 3
+        ------
+        i = 2
+        gas_tank = -2
+        start_index = 3
+        gas_tank = 0
+
+        loop 4
+        ------
+        i = 3
+        gas_tank = 3
+        
+        loop 5
+        ------
+        i = 4
+        gas_tank = 
+        
+
         """
         if sum(gas) < sum(cost):
             return -1
-        gas_tank, start_index = 0, 0
+        T, start_index = 0, 0
         for i in range(len(gas)):
-            gas_tank += gas[i] - cost[i]
-            if gas_tank < 0:
+            T += gas[i] - cost[i]
+            if T < 0:
                 start_index = i+1
-                gas_tank = 0
+                T = 0
         return start_index
 
 
