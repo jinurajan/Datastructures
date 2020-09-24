@@ -19,7 +19,7 @@ Explanation:
 'e' is the letter that was added.
 """
 
-class Solution1(object):
+class Solution2(object):
     def findTheDifference(self, s, t):
         """
         :type s: str
@@ -38,6 +38,26 @@ class Solution1(object):
             hash_set[char] -= 1
             if hash_set[char] == 0:
                 del hash_set[char]
+
+class Solution1(object):
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        hash_set = {}
+        for char in s:
+            hash_set[char] = hash_set.get(char, 0) + 1
+        for char in t:
+            if char not in hash_set:
+                return char
+            hash_set[char] -= 1
+        for char in hash_set:
+        	if hash_set[char] != 0:
+        		return char
+
+
 
 class Solution(object):
     def findTheDifference(self, s, t):
@@ -58,3 +78,6 @@ print Solution().findTheDifference("a", "aa")
 
 print Solution1().findTheDifference("abcd", "abcde")
 print Solution1().findTheDifference("a", "aa")
+
+print Solution2().findTheDifference("abcd", "abcde")
+print Solution2().findTheDifference("a", "aa")
