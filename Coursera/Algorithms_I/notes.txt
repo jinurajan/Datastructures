@@ -1,0 +1,15 @@
+Union Find Applications
+
+
+1. Percolation
+2. Games (Go, Hex)
+3. Dynamic Connectivity
+4. Least common Ancestor
+5. Equivalence of finite state automata
+6. Hoshel-Kopelman Algorithm in Physics
+7. Hinley-Minler polymorphic type inference
+8. Kruskal's minimum spanning tree algorithm
+9. Compiling equivalence statements in Fortran
+10. Morphological attribute openings and closings
+11. Matlab's bwlabel() function in image processing
+
