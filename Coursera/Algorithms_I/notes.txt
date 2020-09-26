@@ -13,3 +13,17 @@ Union Find Applications
 10. Morphological attribute openings and closings
 11. Matlab's bwlabel() function in image processing
 
+
+Percolation
+
+1. N * N grid of sites
+2. Each site is open with probability p (or blocked with probability 1-p)
+3. system percolates if and only if top and bottom are connected by open sites
+
+egs: 
+1. electricity
+2. fluid flow
+3. population
+etc
+
+Monte Carlo simulation - 
