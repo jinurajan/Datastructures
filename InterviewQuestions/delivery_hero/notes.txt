@@ -1,0 +1,19 @@
+GET  /echo?message
+if not message  return 406
+
+if not valid request type(POST / PUT/ DELETE) etc 405 Method not allowed
+
+if request is correct return the message back with 200
+
+
+POST /set_banner
+
+headers admin-auth: 1234 - validate
+if not valid return 403
+
+wrong request type -> 405
+
+if correct -> return empty with 200
+
+
+after correct banner settings echo message should contain banner in the header (banner has to be cached somehere)
