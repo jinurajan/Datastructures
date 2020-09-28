@@ -42,4 +42,4 @@ class Solution(object):
 
 
 
-print Solution().partitionLabels(S = "ababcbacadefegdehijhklij")
+print Solution().partitionLabels("ababcbacadefegdehijhklij")
