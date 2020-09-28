@@ -39,7 +39,7 @@ equations[i][0], equations[i][1], queries[i][0], queries[i][1] consist of lower 
 from collections import defaultdict
 from itertools import chain
 
-class Solution(object):
+class Solution1(object):
     def calcEquation(self, equations, values, queries):
         """
         :type equations: List[List[str]]
@@ -103,8 +103,62 @@ class Solution(object):
         return result
 
 
+class Solution(object):
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        hash_set = {}
+        nodes = set()
+        for i, [x, y] in enumerate(equations):
+            nodes.add(x)
+            nodes.add(y)
+            if x in hash_set:
+                hash_set[x][y] = values[i]
+            else:
+                hash_set[x] = {y: values[i]}
+
+            if y in hash_set:
+                hash_set[y][x] = 1 / values[i]
+            else:
+                hash_set[y] = {x: 1 / values[i]}
+        print hash_set, nodes
+
+        ans = []
+
+        def find(n1, n2, visited, pre_val):
+            for k, v in hash_set[n1].items():
+                if k == n1:
+                    return pre_val * v
+                elif k in visited:
+                    continue
+                else:
+                    visited.add(k)
+                    ans = find(k, n1, visited, pre_val*v)
+                    if ans >= 0:
+                        return ans
+                    visited.remove(k)
+            return -1
+        import pdb; pdb.set_trace()
+        for a, b in queries:
+            if a not in nodes or b not in nodes:
+                ans.append(-1)
+            elif a == b:
+                ans.append(1)
+            else:
+                visited = set()
+                visited.add(a)
+                result = find(a , b, visited, 1)
+                ans.append(result)
+        return ans
+
+
+
 print Solution().calcEquation([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]])
-print Solution().calcEquation([["a","b"],["b","c"],["bc","cd"]], [1.5,2.5,5.0], [["a","c"],["c","b"],["bc","cd"],["cd","bc"]])
+# print Solution().calcEquation([["a","b"],["b","c"],["bc","cd"]], [1.5,2.5,5.0], [["a","c"],["c","b"],["bc","cd"],["cd","bc"]])
 
 
 
