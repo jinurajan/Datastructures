@@ -37,6 +37,32 @@ class Solution(object):
         :type nums: List[int]
         :type target: int
         :rtype: int
+
+        find pivot
+        [4,5,6,7,0,1,2]
+        l = 0 r = 6
+        
+        while loop
+            1.1
+              l = 0 r = 6 m = 3
+              7 <= 2 no
+              l = 4 r = 6
+            1.2
+                l = 4 r = 6 m = 5
+                1 <= 2 yes
+                l =4  r = 4
+            1.2
+                l = 4 r = 4 m =4
+                0 <= 2 yes
+                l = 5 r = 4
+            exit and return 4
+
+        target > nums[0] then target lies in between 0 and 4 (pivot) -> search in this
+        index = bs(nums[:pivot], target)
+        else: target lies in between 4 to the end of the list -> search in this
+        index = bs(nums[pivot:], target) + pivot where l is the pivot
+        if index >=0 and index <=n then return
+
         """
         n = len(nums)
         if n == 0:
@@ -67,14 +93,26 @@ class Solution(object):
             res = bisect.bisect_left(nums[:l], target)
         else:
             res = bisect.bisect_left(nums[l:], target) + l
-        return res if 0 <= res < n and nums[res] == target else -1
+        return res if res >=0 and res < n and nums[res] == target else -1
 
 
+class Solution1(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        return nums.index(target) if target in nums else -1
 
-            
 
 
 print Solution().search([4,5,6,7,0,1,2], 0)
 print Solution().search([4,5,6,7,0,1,2], 3)
 print Solution().search([4,5,6,7,0,1,2], 4)
 print Solution().search([4,5,6,7,0,1,2], 2)
+print ""
+print Solution1().search([4,5,6,7,0,1,2], 0)
+print Solution1().search([4,5,6,7,0,1,2], 3)
+print Solution1().search([4,5,6,7,0,1,2], 4)
+print Solution1().search([4,5,6,7,0,1,2], 2)
