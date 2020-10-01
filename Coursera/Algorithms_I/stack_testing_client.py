@@ -32,7 +32,7 @@ def stack_test_client_1():
 			stack.push(s)
 
 
-# stack_test_client()
+stack_test_client()
 
 def stack_test_client():
 	stack = Stack()
