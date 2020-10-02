@@ -47,7 +47,7 @@ All elements of candidates are distinct.
 
 from typing import List
 
-class Solution:
+class Solution1:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         def comb_sum(idx, curr, comb, res):
             if curr > target:
@@ -62,11 +62,48 @@ class Solution:
         comb_sum(0, 0, [], res)
         return res
 
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        """
+        using dynamic programming
+        candidates = [2,3,5] , 8
+
+        dp = [[], [], [], [], [], [], [], [], []]
+        2
+        [[], [], [[2]], [], [], [], [], [], []]
+        [[], [], [[2]], [], [[2, 2]], [], [], [], []]
+        [[], [], [[2]], [], [[2, 2]], [], [[2, 2, 2]], [], []]
+        3
+        [[], [], [[2]], [[3]], [[2, 2]], [], [[2, 2, 2]], [], [[2, 2, 2, 2]]]
+        [[], [], [[2]], [[3]], [[2, 2]], [[2, 3]], [[2, 2, 2]], [], [[2, 2, 2, 2]]]
+        [[], [], [[2]], [[3]], [[2, 2]], [[2, 3]], [[2, 2, 2], [3, 3]], [], [[2, 2, 2, 2]]]
+        [[], [], [[2]], [[3]], [[2, 2]], [[2, 3]], [[2, 2, 2], [3, 3]], [[2, 2, 3]], [[2, 2, 2, 2]]]
+        5
+        [[], [], [[2]], [[3]], [[2, 2]], [[2, 3], [5]], [[2, 2, 2], [3, 3]], [[2, 2, 3]], [[2, 2, 2, 2], [2, 3, 3]]]
+        [[], [], [[2]], [[3]], [[2, 2]], [[2, 3], [5]], [[2, 2, 2], [3, 3]], [[2, 2, 3], [2, 5]], [[2, 2, 2, 2], [2, 3, 3]]]
+
+        """
+        dp = [[] for _ in range(target+1)]
+        import pdb; pdb.set_trace()
+        for c in candidates:
+            print(c)           
+            for i in range(1, target+1):
+                if i < c :
+                    continue
+                if i == c:
+                    dp[i].append([c])
+                else:
+                    print(i-c, dp[i-c])
+                    for blist in dp[i-c]:
+                        print(dp)
+                        dp[i].append(blist+[c])
+                            
+        return dp[target]
 
 
 
 
-print(Solution().combinationSum([2,3,6,7], 7))
+# print(Solution().combinationSum([2,3,6,7], 7))
 print(Solution().combinationSum([2,3,5], 8))
 
         
