@@ -49,7 +49,6 @@ class Solution1:
         T[1] = nums[1] if nums[0] < nums[1] else nums[0]
         for i in range(2, n):
             T[i] = max(T[i-2]+nums[i], T[i-1])
-        print(T)
         return T[-1]
             
 
