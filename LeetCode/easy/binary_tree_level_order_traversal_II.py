@@ -106,14 +106,14 @@ class Solution:
         def traverse(node, level):
             if node:
                 if level >= len(res):
-                    res.append([])
+                    result.append([])
                 traverse(node.left, level+1)
                 traverse(node.right, level+1)
-                res[level].append(node.val)
+                result[level].append(node.val)
 
-        res = []
+        result = []
         traverse(root, 0)
-        return res[::-1]
+        return result[::-1]
 
 
 
