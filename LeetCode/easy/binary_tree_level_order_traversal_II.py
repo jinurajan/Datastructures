@@ -1,7 +1,6 @@
 """
-Binary Tree Level Order Traversal
-
-Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+Binary Tree Level Order Traversal II
+Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
 
 For example:
 Given binary tree [3,9,20,null,null,15,7],
@@ -10,13 +9,15 @@ Given binary tree [3,9,20,null,null,15,7],
   9  20
     /  \
    15   7
-return its level order traversal as:
+return its bottom-up level order traversal as:
 [
-  [3],
+  [15,7],
   [9,20],
-  [15,7]
+  [3]
 ]
 """
+from typing import List
+
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -24,40 +25,34 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-from typing import List
 
 from collections import deque
-
-class Solutio1:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+class Solution2:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         if not root: return []
         if not root.left and not root.right: return [[root.val]]
-        q = deque([root, None])
+        q = deque([root])
         result = []
-        level = []
-        while q:
-            node = q.popleft()
-            if node:
-                level.append(node.val)
-                if node.left:
+        while len(q) > 0:
+            row =[]
+            row_size = len(q)
+            while row_size > 0:
+                node = q.popleft()
+                row.append(node.val)
+                if node.left is not None:
                     q.append(node.left)
-                if node.right:
+                if node.right is not None:
                     q.append(node.right)
-            else:
-                result.append(level)
-                if len(q) >= 1:
-                    q.append(None)
-                level = []
-
+                row_size -= 1
+            result.insert(0, row)
         return result
 
 
-class Solution2:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+class Solution1:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         if not root: return []
         if not root.left and not root.right: return [[root.val]]
-        q = deque()
-        q.append(root)
+        q = deque([root])
         result = []
         while len(q) > 0:
             row =[]
@@ -71,11 +66,11 @@ class Solution2:
                     q.append(node.right)
                 row_size -= 1
             result.append(row)
-        return result
+        return result[::-1]
 
 
-class Solution:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+class Solution3:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
         if not root: return []
         if not root.left and not root.right: return [[root.val]]
 
@@ -98,45 +93,35 @@ class Solution:
 
         result = []
         h = get_height(root, 0)
-        for i in range(1, h+1):
+        print(h)
+        for i in range(h, 0, -1):
             res = []
             get_given_level(root, i, res)
             result.append(res)
         return result
 
-# root = TreeNode(3)
-# root.left = TreeNode(9)
-# root.right = TreeNode(20)
-# root.right.left = TreeNode(15)
-# root.right.right = TreeNode(7)
-# print(Solution1().levelOrder(root))
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+
+        def traverse(node, level):
+            if node:
+                if level >= len(res):
+                    res.append([])
+                traverse(node.left, level+1)
+                traverse(node.right, level+1)
+                res[level].append(node.val)
+
+        res = []
+        traverse(root, 0)
+        return res[::-1]
 
 
 
 
-# root = TreeNode(1)
-# root.left = TreeNode(2)
-# root.right = TreeNode(3)
-# root.left.left = TreeNode(4)
-# root.left.right = TreeNode(5)
-# print(Solution1().levelOrder(root))
 
-# print("**********")
-
-# root = TreeNode(3)
-# root.left = TreeNode(9)
-# root.right = TreeNode(20)
-# root.right.left = TreeNode(15)
-# root.right.right = TreeNode(7)
-# print(Solution().levelOrder(root))
-
-
-
-
-root = TreeNode(1)
-root.left = TreeNode(2)
-root.right = TreeNode(3)
-root.left.left = TreeNode(4)
-root.left.right = TreeNode(5)
-print(Solution().levelOrder(root))
-
+root = TreeNode(3)
+root.left = TreeNode(9)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(7)
+print(Solution().levelOrderBottom(root))
