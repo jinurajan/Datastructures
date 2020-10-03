@@ -38,7 +38,6 @@ class Solution:
             return l1
         head = None
         node = None
-        import pdb; pdb.set_trace()
         while l1 and l2:
             if l1.val <= l2.val:
                 if not head:

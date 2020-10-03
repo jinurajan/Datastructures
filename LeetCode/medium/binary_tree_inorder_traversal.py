@@ -78,7 +78,6 @@ class Solution:
             node = q.pop()
             result.append(node.val)
             node = node.right
-            print(q)
         return result
 
 
