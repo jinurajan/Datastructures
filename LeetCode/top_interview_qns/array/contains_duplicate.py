@@ -19,13 +19,20 @@ Output: true
 """
 from typing import List
 
-class Solution:
+class Solution1:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        if not nums:
-            return True
+        if not nums or len(nums) == 1:
+            return False
         s = set()
         for num in nums:
             if num in s:
                 return True
             s.add(num)
         return False
+
+
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        if not nums:
+            return False
+        return len(nums) != len(set(nums))
