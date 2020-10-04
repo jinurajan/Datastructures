@@ -40,7 +40,6 @@ class Solution:
 
         prev = None
         curr = head
-        nxt = None
         while curr:
             nxt = curr.next
             curr.next = prev
