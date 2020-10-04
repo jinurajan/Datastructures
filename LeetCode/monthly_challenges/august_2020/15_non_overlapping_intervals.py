@@ -40,7 +40,7 @@ class Solution(object):
         for interval in intervals:
             if interval[0] >= max_interval:
                 counter += 1
-                max_interval = interval[1]
+                max_interval = interval[0]
         return len(intervals) - counter
 
 
