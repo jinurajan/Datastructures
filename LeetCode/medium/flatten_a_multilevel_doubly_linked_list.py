@@ -109,9 +109,11 @@ class Solution:
     		ret = helper(next_node)
     		node.child = None
     		return ret if ret else tail_node
-    	import pdb; pdb.set_trace()
     	helper(head)
     	return head
+
+
+
 
 
 
