@@ -68,7 +68,7 @@ class Solution3(object):
         """
 
         def binary_search(nums, l, r, key):
-            if l < r:
+            if l <= r:
                 mid = l + (r-l) / 2
                 if nums[mid] == key:
                     return mid
