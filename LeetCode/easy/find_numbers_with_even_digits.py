@@ -27,7 +27,7 @@ Constraints:
 1 <= nums.length <= 500
 1 <= nums[i] <= 10^5
 """
-class Solution(object):
+class Solution1(object):
     def findNumbers(self, nums):
         """
         :type nums: List[int]
@@ -41,3 +41,31 @@ class Solution(object):
             no += 1
             num = num / 10
         return 1 if no % 2 == 0 else 0
+
+class Solution2(object):
+    def findNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return len([x for x in nums if len(str(x)) % 2 == 0])
+
+
+class Solution(object):
+    def findNumbers(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        evenDigitCount = 0
+        for i in range(len(nums)):
+            if 10 ** 1 <= nums[i] and nums[i] < 10 ** 2:
+                evenDigitCount += 1         
+            elif (10 ** 3) <= nums[i] and nums[i] < (10 ** 4):
+                evenDigitCount += 1
+            elif (10 ** 5) == nums[i]:
+                evenDigitCount += 1
+        return evenDigitCount
+
+
+print(Solution().findNumbers([555,901,482,1771]))
