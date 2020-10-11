@@ -98,3 +98,8 @@ root.left = TreeNode(3)
 root.left.left = TreeNode(1)
 print(Solution1().postorderTraversal(root))
 print(Solution().postorderTraversal(root))
+
+root = TreeNode('F')
+root.left = TreeNode('B')
+root.left.left = TreeNode('A')
+root.left.right = TreeNode('')
