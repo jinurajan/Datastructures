@@ -28,7 +28,7 @@ from typing import List
 
 from collections import deque
 
-class Solutio1:
+class Solution1:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root: return []
         if not root.left and not root.right: return [[root.val]]
