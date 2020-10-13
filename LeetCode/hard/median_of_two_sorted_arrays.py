@@ -105,10 +105,9 @@ class Solution:
         min_val = float("-inf")
         max_val = float("inf")
 
-        if n2 > n1:
+        if n2 < n1:
             nums1, nums2 = nums2, nums1
             n1, n2 = n2, n1
-        import pdb; pdb.set_trace()
         start, end = 0, n1
         half_len = (n1 + n2 + 1 ) // 2
         while start <= end:
@@ -131,12 +130,6 @@ class Solution:
                 end = partition_x - 1
             else:
                 start = partition_x + 1
-
-
-            
-
-
-
 
 
 
