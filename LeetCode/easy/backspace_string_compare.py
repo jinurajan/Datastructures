@@ -48,12 +48,10 @@ class Solution:
 
         populate_stack(S, stack1)
         populate_stack(T, stack2)
-        import pdb; pdb.set_trace()
-        print(stack1, stack2)
         return stack1 == stack2
         
         
             
-# print(Solution().backspaceCompare("ab#c", "ad#c"))
-# print(Solution().backspaceCompare("ab##", "c#d#"))
+print(Solution().backspaceCompare("ab#c", "ad#c"))
+print(Solution().backspaceCompare("ab##", "c#d#"))
 print(Solution().backspaceCompare("a#c", "b"))
