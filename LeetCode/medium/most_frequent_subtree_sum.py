@@ -33,6 +33,9 @@ class Solution:
         def find_subtree_sum(node):
             if not node:
                 return 0
+            if not node.right and not node.left:
+                frequency_hash[node.val] = frequency_hash.get(node.val, 0) + 1
+                return node.val
             ans = find_subtree_sum(node.left) + find_subtree_sum(node.right)
             frequency_hash[ans] = frequency_hash.get(ans, 0) + 1
             return ans
