@@ -27,7 +27,7 @@ Constraints:
 from typing import List
 
 
-class Solution:
+class Solution1:
     def validMountainArray(self, arr: List[int]) -> bool:
         if len(arr) < 3:
             return False
@@ -51,6 +51,23 @@ class Solution:
             return arr[l-1] < arr[l] and arr[r+1] > arr[r]
         else:
             return (arr[l-1] < arr[l] and arr[l] > arr[r]) or (arr[l] < arr[r] and arr[r] > arr[r+1])
+
+class Solution:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        l = len(arr)
+        if l < 3:
+            return False
+        i = 0
+        while i < l-1 and arr[i+1] > arr[i]:
+            i += 1
+        if i == 0 or i == l-1:
+            return False
+        while i < l-1 and arr[i+1] < arr[i]:
+            i += 1
+        return i == l-1
+
+
+
 arr = [2,1]
 print(Solution().validMountainArray(arr))
 
