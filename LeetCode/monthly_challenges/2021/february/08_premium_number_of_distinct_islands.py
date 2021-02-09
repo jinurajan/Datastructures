@@ -18,7 +18,7 @@ Example 1:
 """
 from typing import List
 
-class Solution:
+class Solution2:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
         columns = len(grid[0])
         rows = len(grid)
@@ -61,18 +61,76 @@ class Solution:
 
 
 
+class Solution1:
+    def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        columns = len(grid[0])
+        rows = len(grid)
+        def dfs(node, i, j):
+            if i < 0 or i > rows-1 or j < 0 or j > columns-1:
+                return
+            if (i, j) in visited or not node[i][j]:
+                return
+            visited.add((i, j))
+            curr_island.append((i-row_origin, j-col_origin))
+            neighbor_idx = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+            for x, y in neighbor_idx:
+                dfs(node, i+x, j+y)
+
+        visited = set()
+        islands = set()
+        for i in range(rows):
+            for j in range(columns):
+                curr_island = []
+                row_origin = i
+                col_origin = j
+                dfs(grid, i, j)
+                if curr_island:
+                    islands.add(frozenset(curr_island))
+        return len(islands)
+
+
+class Solution:
+    def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        columns = len(grid[0])
+        rows = len(grid)
+        def dfs(node, i, j, direction):
+            if i < 0 or i > rows-1 or j < 0 or j > columns-1:
+                return
+            if (i, j) in visited or not node[i][j]:
+                return
+            visited.add((i, j))
+            path.append(direction)
+            neighbor_idx = [(1, 0, 'D'), (-1, 0, 'U'), (0, 1, 'R'), (0, -1, 'L')]
+            for x, y, direction in neighbor_idx:
+                dfs(node, i+x, j+y, direction)
+            path.append("0")
+
+        visited = set()
+        islands = set()
+        for i in range(rows):
+            for j in range(columns):
+                path = []
+                dfs(grid, i, j, "0")
+                if path:
+                    islands.add(tuple(path))
+        return len(islands)
 
 
 
-# grid = [[1,1,0,1,1],
-#         [1,0,0,0,0],
-#         [0,0,0,0,1],
-#         [1,1,0,1,1]]
-# print(Solution().numDistinctIslands(grid))
+
+
+grid = [[1,1,0,1,1],
+        [1,0,0,0,0],
+        [0,0,0,0,1],
+        [1,1,0,1,1]]
+print(Solution().numDistinctIslands(grid) == 3)
 
 grid = [[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]
 
-print(Solution().numDistinctIslands(grid))
+print(Solution().numDistinctIslands(grid) == 1)
+
+grid = [[1,1,0],[0,1,1],[0,0,0],[1,1,1],[0,1,0]]
+print(Solution().numDistinctIslands(grid) == 2)
 
 
 
