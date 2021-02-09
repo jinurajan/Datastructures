@@ -46,7 +46,7 @@ class Solution1:
         compute(num[0], num[1:], int(num[0]), target)
         return output
 
-class Solution:
+class Solution1:
     def addOperators(self, num: 'str', target: 'int') -> 'List[str]':
         N = len(num)
         output = []
@@ -80,24 +80,46 @@ class Solution:
         return output
 
 
-# num = "123"
-# target = 6
-# print(Solution().addOperators(num, target))
+class Solution:
+    def addOperators(self, num: 'str', target: 'int') -> 'List[str]':
+        result = []
+        def dfs(candidate, i, total, prev_add):
+            if i == len(num) and total == target:
+                return result.append(candidate)
+            for j in range(i+1, len(num)+1):
+                s = num[i:j]
+                d = int(s)
+                if num[i] == '0' and s != '0':
+                    continue
+                if not candidate:
+                    dfs(s, j, d, d)
+                else:
+                    dfs(candidate + '+' + s, j, total+d, d)
+                    dfs(candidate + '-' + s, j, total - d, -d)
+                    dfs(candidate + '*' + s, j, total - prev_add + prev_add * d, prev_add * d)
+        dfs('', 0, 0, 0)
+        return result
+
+
+
+num = "123"
+target = 6
+print(Solution().addOperators(num, target))
 
 num = "232"
 target = 8
 import pdb; pdb.set_trace()
 print(Solution().addOperators(num, target))
 
-# num = "105"
-# target = 5
-# print(Solution().addOperators(num, target))
-#
-# num = "00"
-# target = 0
-# print(Solution().addOperators(num, target))
-#
-# num = "3456237490"
-# target = 9191
-# print(Solution().addOperators(num, target))
+num = "105"
+target = 5
+print(Solution().addOperators(num, target))
+
+num = "00"
+target = 0
+print(Solution().addOperators(num, target))
+
+num = "3456237490"
+target = 9191
+print(Solution().addOperators(num, target))
 
