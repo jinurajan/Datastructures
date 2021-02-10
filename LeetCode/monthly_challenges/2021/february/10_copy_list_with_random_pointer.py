@@ -42,7 +42,7 @@ class Node:
         self.next = next
         self.random = random
 
-class Solution:
+class Solution1:
     def copyRandomList(self, head: 'Node') -> 'Node':
         if not head:
             return head
@@ -50,7 +50,6 @@ class Solution:
         node = head
         dummy_node = Node(-1)
         new_node = dummy_node
-        import pdb; pdb.set_trace()
         while node:
             if node in node_map:
                 new_node.next = node_map[node]
@@ -69,6 +68,47 @@ class Solution:
             new_node = new_node.next
         new_head = dummy_node.next
         dummy_node.next = None
+        return new_head
+
+class Solution:
+    def __init__(self):
+        self.visited = {}
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+        if head in self.visited:
+            return self.visited[head]
+        node = Node(head.val, None, None)
+        self.visited[head] = node
+        node.next = self.copyRandomList(head.next)
+        node.random = self.copyRandomList(head.random)
+        return  node
+
+
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head:
+            return head
+        node = head
+        while node:
+            new_node = Node(node.val, None, None)
+            new_node.next = node.next
+            node.next = new_node
+            node = new_node.next
+        node = head
+        while node:
+            node.next.random = node.random.next if node.random else None
+            node = node.next.next
+
+        old_list_node = head
+        new_list_node = head.next
+        new_head = head.next
+        while old_list_node:
+            old_list_node.next = old_list_node.next.next
+            new_list_node.next = new_list_node.next.next if new_list_node.next else None
+            old_list_node = old_list_node.next
+            new_list_node = new_list_node.next
         return new_head
 
 
