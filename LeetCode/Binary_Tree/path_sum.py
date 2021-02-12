@@ -29,7 +29,7 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-class Solution:
+class Solution2:
     def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
         if not root:
             return False
@@ -39,26 +39,62 @@ class Solution:
             root.right, targetSum - root.val)
 
 
+class Solution1:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        if not root:
+            return False
+        if not root.left and not root.right:
+            if root.val == targetSum:
+                return True
+            else:
+                return False
+        return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(
+            root.right, targetSum-root.val)
+
+from collections import deque
+
+class Solution:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        if not root:
+            return False
+        s = deque([(root, 0)])
+        while s:
+            node, sum_val = s.pop()
+            sum_val += node.val
+            if not node.left and not node.right and sum_val == targetSum:
+                return True
+            if node.left:
+                s.append((node.left, sum_val))
+            if node.right:
+                s.append((node.right, sum_val))
+        return False
+
+
+
+
+
 r = TreeNode(2)
 r.left = TreeNode(1)
 r.right = TreeNode(4)
 r.right.left = TreeNode(3)
 r.right.right = TreeNode(5)
-print(Solution().hasPathSum(r, 9))
-print(Solution().hasPathSum(r, 10))
-print(Solution().hasPathSum(r, 11))
-print(Solution().hasPathSum(r, 1))
-print(Solution().hasPathSum(r, 3))
+print(Solution().hasPathSum(r, 9), Solution1().hasPathSum(r, 9))
+print(Solution().hasPathSum(r, 10), Solution1().hasPathSum(r, 10))
+print(Solution().hasPathSum(r, 11), Solution1().hasPathSum(r, 11))
+print(Solution().hasPathSum(r, 1), Solution1().hasPathSum(r, 1))
+print(Solution().hasPathSum(r, 3), Solution1().hasPathSum(r, 3))
 
 
 r = TreeNode(1)
 r.left = TreeNode(2)
 print(Solution().hasPathSum(r, 1))
+print(Solution1().hasPathSum(r, 1))
 
 r = TreeNode(-2)
 r.right = TreeNode(-3)
 # import pdb; pdb.set_trace()
 print(Solution().hasPathSum(r, -5))
+print(Solution1().hasPathSum(r, -5))
 
 
 
