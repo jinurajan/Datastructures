@@ -57,8 +57,9 @@ class Node:
         self.val = val
         self.neighbors = neighbors if neighbors is not None else []
 
-class Solution:
+class Solution2:
     def cloneGraph(self, node: 'Node') -> 'Node':
+        """ Using bfs"""
         if not node:
             return None
         node_map = {}
@@ -81,6 +82,48 @@ class Solution:
                 else:
                     neighbor_node = node_map[neighbor.val]
                 new_node.neighbors.append(neighbor_node)
+        return new_base_node
+
+
+class Solution:
+    def __init__(self):
+        self.visited = {}
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return node
+        if node in self.visited:
+            return self.visited[node]
+        new_node = Node(node.val)
+        self.visited[node] = new_node
+        if node.neighbors:
+            new_node.neighbors = [self.cloneGraph(n) for n in node.neighbors]
+        return new_node
+
+
+class Solution2:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        visited = {}
+        new_base_node = None
+        S = deque([node])
+        while S:
+            node = S.pop()
+            if node not in visited:
+                new_node = Node(node.val)
+                visited[node] = new_node
+                if not new_base_node:
+                    new_base_node = new_node
+            else:
+                new_node = visited[node]
+            for n in node.neighbors:
+                if n not in visited:
+                    new_n = Node(n.val)
+                    new_node.neighbors.append(new_n)
+                    visited[n] = new_n
+                    S.append(n)
+                else:
+                    new_node.neighbors.append(visited[n])
         return new_base_node
 
 
