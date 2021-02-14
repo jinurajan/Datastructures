@@ -43,7 +43,7 @@ class Solution:
                         if n not in color_map:
                             stack.append(n)
                             color_map[n] = color_map[node] ^ 1
-                        elif color_map[nei] == color_map[node]:
+                        elif color_map[n] == color_map[node]:
                             return False
         return True
 
