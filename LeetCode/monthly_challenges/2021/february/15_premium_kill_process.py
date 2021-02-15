@@ -28,7 +28,27 @@ n >= 1.
 """
 from typing import List
 
-class Solution:
+class Solution3:
+    def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
+        parent_process_map = {}
+        for idx in range(len(ppid)):
+            if ppid[idx] not in parent_process_map:
+                parent_process_map[ppid[idx]] = [pid[idx]]
+            else:
+                parent_process_map[ppid[idx]].append(pid[idx])
+
+        s = [kill]
+        res = []
+        while s:
+            parent_proc = s.pop()
+            res.append(parent_proc)
+            if parent_proc not in parent_process_map:
+                continue
+            for process in parent_process_map[parent_proc]:
+                s.append(process)
+        return res
+
+class Solution2:
     def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
         parent_process_map = {}
         for idx in range(len(ppid)):
@@ -40,13 +60,59 @@ class Solution:
         q = [kill]
         res = []
         while q:
-            parent_proc = q.pop()
+            parent_proc = q.pop(0)
             res.append(parent_proc)
             if parent_proc not in parent_process_map:
                 continue
             for process in parent_process_map[parent_proc]:
                 q.append(process)
         return res
+
+from collections import deque
+
+
+class Solution1:
+    def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
+        parent_process_map = {}
+        for idx in range(len(ppid)):
+            if ppid[idx] not in parent_process_map:
+                parent_process_map[ppid[idx]] = [pid[idx]]
+            else:
+                parent_process_map[ppid[idx]].append(pid[idx])
+
+        s = deque([kill])
+        res = []
+        while q:
+            parent_proc = s.pop()
+            res.append(parent_proc)
+            if parent_proc not in parent_process_map:
+                continue
+            for process in parent_process_map[parent_proc]:
+                q.append(process)
+        return res
+
+
+
+class Solution:
+    def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
+        parent_process_map = {}
+        for idx in range(len(ppid)):
+            if ppid[idx] not in parent_process_map:
+                parent_process_map[ppid[idx]] = [pid[idx]]
+            else:
+                parent_process_map[ppid[idx]].append(pid[idx])
+
+        q = deque([kill])
+        res = []
+        while q:
+            parent_proc = q.popleft()
+            res.append(parent_proc)
+            if parent_proc not in parent_process_map:
+                continue
+            for process in parent_process_map[parent_proc]:
+                q.append(process)
+        return res
+
 
 pid =  [1, 3, 10, 5]
 ppid = [3, 0, 5, 3]
