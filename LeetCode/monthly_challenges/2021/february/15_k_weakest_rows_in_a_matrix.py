@@ -47,7 +47,7 @@ matrix[i][j] is either 0 or 1.
 from typing import List
 
 
-class Solution:
+class Solution1:
     def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
         values = []
         for i in range(len(mat)):
@@ -56,6 +56,12 @@ class Solution:
         pdb.set_trace()
         return [val[1] for val in sorted(values, key=lambda x: x[0])][:k]
 
+class Solution:
+    def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
+        d = {}
+        for i in range(len(mat)):
+            d[i] = sum(mat[i])
+        return sorted(d, key=d.get)[:k]
 
 mat = [[1,0,0,0],
  [1,1,1,1],
