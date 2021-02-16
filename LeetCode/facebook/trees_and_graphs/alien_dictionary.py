@@ -67,7 +67,6 @@ class Solution1:
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
         reverse_adj_list = {c : [] for word in words for c in word}
-
         for first, secnd in zip(words, words[1:]):
             for c, d in zip(first, secnd):
                 if c != d:
