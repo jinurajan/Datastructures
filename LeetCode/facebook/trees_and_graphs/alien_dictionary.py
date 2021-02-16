@@ -35,8 +35,9 @@ from typing import List
 from collections import defaultdict, Counter, deque
 
 
-class Solution:
+class Solution1:
     def alienOrder(self, words: List[str]) -> str:
+        """ Using BFS ie queue"""
         adjacency_list = defaultdict(set)
         in_degree = Counter({c: 0 for word in words for c in word})
 
@@ -63,7 +64,35 @@ class Solution:
             return ""
         return "".join(result)
 
+class Solution:
+    def alienOrder(self, words: List[str]) -> str:
+        reverse_adj_list = {c : [] for word in words for c in word}
 
+        for first, secnd in zip(words, words[1:]):
+            for c, d in zip(first, secnd):
+                if c != d:
+                    reverse_adj_list[d].append(c)
+                    break
+            else:
+                if len(secnd) < len(first):
+                    return ""
+        seen = {}
+        result = []
+        def visit(node):
+            if node in seen:
+                return seen[node]
+            seen[node] = False
+            for next_node in reverse_adj_list[node]:
+                res = visit(next_node)
+                if not res:
+                    return False
+            seen[node] = True
+            result.append(node)
+            return True
+        if not all(visit(node) for node in reverse_adj_list):
+            return ""
+
+        return "".join(result)
 
 
 
