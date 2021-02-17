@@ -43,22 +43,22 @@ class Solution:
 
 
 
-# s = "eceba"
-# k = 2
-# print(Solution().lengthOfLongestSubstringKDistinct(s, k))
+s = "eceba"
+k = 2
+print(Solution().lengthOfLongestSubstringKDistinct(s, k))
 
 
-# s = "aa"
-# k = 1
-# print(Solution().lengthOfLongestSubstringKDistinct(s, k))
+s = "aa"
+k = 1
+print(Solution().lengthOfLongestSubstringKDistinct(s, k))
 
-# s ='a'
-# k = 0
-# print(Solution().lengthOfLongestSubstringKDistinct(s, k))
-#
-# s = 'aba'
-# k = 1
-# print(Solution().lengthOfLongestSubstringKDistinct(s, k))
+s ='a'
+k = 0
+print(Solution().lengthOfLongestSubstringKDistinct(s, k))
+
+s = 'aba'
+k = 1
+print(Solution().lengthOfLongestSubstringKDistinct(s, k))
 
 s = "bacc"
 k = 2
