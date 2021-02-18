@@ -27,7 +27,7 @@ return: 3, for 3 arithmetic slices in A: [1, 2, 3], [2, 3, 4] and [1, 2, 3, 4] i
 from typing import List
 
 
-class Solution:
+class Solution1:
     def numberOfArithmeticSlices(self, A: List[int]) -> int:
         count = 0
         if len(A) < 3:
@@ -61,6 +61,45 @@ class Solution:
                     end = start + 2
                     hash_map ={}
         return count
+
+
+class Solution2:
+    def numberOfArithmeticSlices(self, A: List[int]) -> int:
+        count = 0
+        if len(A) < 3:
+            return count
+        for start in range(len(A)-2):
+            d = A[start+1] - A[start]
+            for end in range(start+2, len(A)):
+                if A[end] - A[end-1] == d:
+                    count += 1
+                else:
+                    break
+        return count
+
+
+class Solution:
+    def numberOfArithmeticSlices(self, A: List[int]) -> int:
+        """ Using Recursion"""
+        sum = 0
+        def slices(i):
+            nonlocal sum
+            if i < 2:
+                return 0
+            ap = 0
+            if A[i] - A[i-1] == A[i-1] - A[i-2]:
+                ap = 1 + slices(i-1)
+                sum += ap
+            else:
+                slices(i-1)
+            return ap
+
+        import pdb;
+        pdb.set_trace()
+        slices(len(A)-1)
+        return sum
+
+
 
 
 A = [1, 2, 3, 4]
