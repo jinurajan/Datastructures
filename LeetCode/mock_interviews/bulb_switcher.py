@@ -26,30 +26,36 @@ Constraints:
 
 0 <= n <= 109
 """
-
+from math import sqrt
 
 class Solution:
     def bulbSwitch(self, n: int) -> int:
-        if n == 0:
-            return 0
-        if n <= 2:
-            return 1
-        array = [1 for i in range(n)]
-        print(array)
-        for i in range(2, n+1):
-            for j in range(1, len(array)):
-                if j % i == 1:
-                    print(j, i)
-                    array[j] ^= 1
-            print(array)
-        return sum(array)
+        return int(sqrt(n))
 
-# print(Solution().bulbSwitch(0))
-# print(Solution().bulbSwitch(1))
-# print(Solution().bulbSwitch(2))
+class Solution1:
+    def bulbSwitch(self, n: int) -> int:
+        on_bulbs = 0
+        for bulb in range(1, n+1):
+            factors = 0
+            for row in range(1, int(pow(n, 0.5))+1):
+                if bulb % row == 0:
+                    factors += 1
+                    if bulb // row != row:
+                        factors += 1
+            if factors % 2 == 1:
+                on_bulbs += 1
+        return  on_bulbs
+
+print(Solution().bulbSwitch(0))
+print(Solution().bulbSwitch(1))
+print(Solution().bulbSwitch(2))
 print(Solution().bulbSwitch(3))
-# print(Solution().bulbSwitch(4))
-# print(Solution().bulbSwitch(5))
-# print(Solution().bulbSwitch(6))
+print(Solution().bulbSwitch(4))
+print(Solution().bulbSwitch(5))
+print(Solution().bulbSwitch(6))
+print(Solution().bulbSwitch(7))
+print(Solution().bulbSwitch(8))
+print(Solution().bulbSwitch(9))
+print(Solution().bulbSwitch(10))
 
 
