@@ -35,10 +35,10 @@ class Solution:
                 return 0
             l_path = find_dia(node.left)
             r_path = find_dia(node.right)
-            max_path = max(l_path+r_path+1, max_path)
+            max_path = max(l_path+r_path, max_path)
             return max(l_path, r_path) + 1
         find_dia(root)
-        return max_path -1
+        return max_path
 
 root = TreeNode(1)
 root.left = TreeNode(2)
