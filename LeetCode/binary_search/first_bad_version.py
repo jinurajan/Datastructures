@@ -59,5 +59,17 @@ class Solution1:
         return min_version[0]
 
 
-
+class Solution2:
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        x = -1
+        start = n
+        while start >= 1:
+            while not isBadVersion(x+start):
+                x += start
+            start //= 2
+        return x + 1
 
