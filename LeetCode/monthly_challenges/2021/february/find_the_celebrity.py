@@ -97,6 +97,32 @@ class Solution:
                     return -1
         return c
 
+from functools import lru_cache
+
+class Solution:
+    def findCelebrity(self, n: int) -> int:
+        candidates = set(range(n))
+
+        @lru_cache(maxsize=None)
+        def if_knows(a, b):
+            return knows(a, b)
+
+        while len(candidates) > 1:
+            it = iter(candidates)
+            a = next(it)
+            b = next(it)
+            if if_knows(a, b):
+                candidates.remove(a)
+            else:
+                candidates.remove(b)
+        c = next(iter(candidates))
+        for i in range(n):
+            if c != i:
+                if not if_knows(i, c) or if_knows(c, i):
+                    return -1
+        return c
+
+
 
 
 print(Solution().findCelebrity(2))
