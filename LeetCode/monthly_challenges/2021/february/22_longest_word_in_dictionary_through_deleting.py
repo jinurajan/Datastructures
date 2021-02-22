@@ -22,9 +22,25 @@ The length of all the strings in the input won't exceed 1,000
 from typing import List
 from functools import cmp_to_key
 
-class Solution:
+class Solution2:
     def findLongestWord(self, s: str, d: List[str]) -> str:
         d = sorted(d, key=cmp_to_key(lambda x, y: ((x > y) - (x < y))  if len(x) == len(y) else len(y) - len(x)))
+        def is_subsequence(word):
+            i = 0
+            j = 0
+            while i < len(s) and j < len(word):
+                if s[i] == word[j]:
+                    j += 1
+                i += 1
+            return j == len(word)
+        for word in d:
+            if is_subsequence(word):
+                    return word
+        return ""
+
+class Solution1:
+    def findLongestWord(self, s: str, d: List[str]) -> str:
+        d.sort(key=lambda x: (-len(x),x) )
         def is_subsequence(word):
             i = 0
             j = 0
