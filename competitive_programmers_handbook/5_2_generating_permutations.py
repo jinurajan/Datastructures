@@ -22,7 +22,7 @@ def generate_permutations_1(array):
                 visited[i] = True
                 combination.append(array[i])
                 backtrack(combination)
-                visited[i] = False 0-====
+                visited[i] = False
                 combination.pop()
     backtrack(combination)
     return results
@@ -38,7 +38,22 @@ def generate_permutations_2(array):
 
 
 
+def generate_permutations_3(array):
+    n = len(array)
+    results = []
+    def backtrack(first):
+        if first == n:
+            results.append(array[:])
+        else:
+            for i in range(first, n):
+                array[first], array[i] = array[i], array[first]
+                backtrack(first+1)
+                array[first], array[i] = array[i], array[first]
+    backtrack(0)
+    return results
+
 
 array = [1,2,3]
 print(generate_permutations_1(array))
 print(generate_permutations_2(array))
+print(generate_permutations_3(array))
