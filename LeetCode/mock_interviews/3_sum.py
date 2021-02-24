@@ -1,4 +1,5 @@
 """
+3 Sum
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
 
 Notice that the solution set must not contain duplicate triplets.
@@ -21,7 +22,8 @@ Constraints:
 from typing import List
 
 
-class Solution:
+class Solution2:
+    """ Time Limit Exceeded"""
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
         visited = set()
@@ -41,35 +43,7 @@ class Solution:
         backtrack(0, 0, [], results)
         return sorted(results)
 
-
-from collections import Counter
-class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
-        n = len(nums)
-        result = []
-        uniq_combination = set()
-        def backtrack(index, sum, combination):
-            if sum == 0 and len(combination) == 3:
-                if tuple(sorted(combination)) not in uniq_combination:
-                    result.append(combination[:])
-                uniq_combination.add(tuple(sorted(combination)))
-                return
-            elif len(combination) > 3:
-                return
-            for i in range(index, n):
-                if counter[nums[i]] <= 0:
-                    continue
-                combination.append(nums[i])
-                counter[nums[i]] -= 1
-                backtrack(i, sum+nums[i], combination)
-                counter[nums[i]] += 1
-                combination.pop()
-        counter = Counter(nums)
-        backtrack(0, 0, [])
-        return result
-
-
-class Solution:
+class Solution1:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res, dups = set(), set()
         seen = {}
@@ -82,6 +56,35 @@ class Solution:
                         res.add(tuple(sorted((val1, val2, complement))))
                     seen[val2] = i
         return res
+
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i - 1] != nums[i]:
+                self.twoSum(nums, i, res)
+        return res
+
+    def twoSum(self, nums: List[int], i: int, res: List[List[int]]):
+        start, end = i + 1, len(nums) - 1
+        while start < end:
+            sum = nums[start] + nums[end] + nums[i]
+            if sum < 0:
+                start += 1
+            elif sum > 0:
+                end -= 1
+            else:
+                res.append([nums[i], nums[start], nums[end]])
+                start += 1
+                end -= 1
+                while start < end and nums[start] == nums[start - 1]:
+                    start += 1
+
+
 # nums = [-1,0,1,2,-1,-4]
 # print(Solution().threeSum(nums))
 # nums = [0]
