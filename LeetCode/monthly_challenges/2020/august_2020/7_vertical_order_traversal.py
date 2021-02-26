@@ -97,6 +97,32 @@ class Solution(object):
         self.find_min_max(node.right, mn, mx, hd + 1)
 
 
+from collections import defaultdict, deque
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        vertical_values = defaultdict(lambda:[])
+        stack = deque([(root, 0)])
+        min_val = 0
+        max_val = 0
+        result = []
+        while stack:
+            node, val = stack.popleft()
+            if node:
+                vertical_values[val].append(node.val)
+                min_val = min(min_val, val)
+                max_val = max(max_val, val)
+                if node.left:
+                    stack.append((node.left, val-1))
+                if node.right:
+                    stack.append((node.right, val+1))
+        for i in range(min_val, max_val+1):
+            result.append(vertical_values[i])
+        return result
+
+
+
 if __name__ == "__main__":
     # root = TreeNode(3)
     # root.left = TreeNode(9)
