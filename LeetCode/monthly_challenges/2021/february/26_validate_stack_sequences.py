@@ -40,3 +40,13 @@ class Solution:
                 peek_idx += 1
         return not stack and peek_idx == len(popped)
 
+class Solution1:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        stack = []
+        for n in pushed:
+            stack.append(n)
+            while stack and stack[-1] == popped[peek_idx]:
+                stack.pop()
+                popped.pop()
+        return not stack
+
