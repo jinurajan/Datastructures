@@ -44,17 +44,48 @@ def print_combinations(coins, result):
 
 
 
-x = 9
-print(min_no_of_coins_1(x) == 3)
-print(min_no_of_coins_values(x))
-x = 5
-print(min_no_of_coins_1(x) == 2)
-print(min_no_of_coins_values(x))
 
-x = 0
-print(min_no_of_coins_1(x) == 0)
-print(min_no_of_coins_values(x))
+def number_of_ways_with_backtrack(sum):
+    count = 0
+    coins = [1, 3, 4]
+    def find_ways(x):
+        nonlocal count
+        if x == 0:
+            count += 1
+            return 1
+        if x < 0:
+            return 0
+        s = 0
+        for coin in coins:
+            s += find_ways(x-coin)
+        return s
+    find_ways(sum)
+    return count
 
-x = 4
-print(min_no_of_coins_1(x) == 1)
-print(min_no_of_coins_values(x))
+def number_of_ways_with_dp(sum):
+    coins = [1, 3, 4]
+    count = [0 if i not in coins else 1 for i in range(sum+1) ]
+    for i in range(1, sum+1):
+        for c in coins:
+            if i-c >=0:
+                count[i] += count[i-c]
+    return count[-1]
+
+
+# x = 9
+# print(min_no_of_coins_1(x) == 3)
+# print(min_no_of_coins_values(x))
+# x = 5
+# print(min_no_of_coins_1(x) == 2)
+# print(min_no_of_coins_values(x))
+#
+# x = 0
+# print(min_no_of_coins_1(x) == 0)
+# print(min_no_of_coins_values(x))
+#
+# x = 4
+# print(min_no_of_coins_1(x) == 1)
+# print(min_no_of_coins_values(x))
+
+print(number_of_ways_with_backtrack(5))
+print(number_of_ways_with_dp(5))
