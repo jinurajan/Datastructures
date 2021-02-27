@@ -6,7 +6,7 @@ length = 4 (2, 5, 7, 8)
 
 """
 
-def find_longest_subseq(array):
+def find_longest_subseq_1(array):
     n = len(array)
     dp =[0 for i in range(n)]
     for i in range(n):
@@ -14,7 +14,16 @@ def find_longest_subseq(array):
         for j in range(i):
             if array[j] < array[i]:
                 dp[i] = max(dp[i], dp[j]+1)
-    return dp[-1]
+    return max(dp)
+
+def find_longest_subseq(array):
+    n = len(array)
+    dp =[1 for i in range(n)]
+    for i in range(n):
+        for j in range(i):
+            if array[j] < array[i]:
+                dp[i] = max(dp[i], dp[j]+1)
+    return max(dp)
 
 
 print(find_longest_subseq([6,2,5,1,7,4,8,3]))
