@@ -24,7 +24,7 @@ n == mat[i].length
 """
 from typing import List
 
-
+from collections import defaultdict
 class Solution:
     def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
         rows = len(mat)
@@ -40,4 +40,3 @@ class Solution:
                 value = heapq.heappop(diagonals[row - col])
                 mat[row][col] = value
         return mat
-
