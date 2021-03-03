@@ -17,9 +17,9 @@ Output:
 ]
 
 """
+from typing import List
 
 from collections import defaultdict
-
 
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
