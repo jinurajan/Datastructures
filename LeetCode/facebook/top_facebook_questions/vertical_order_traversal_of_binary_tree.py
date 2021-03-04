@@ -16,7 +16,8 @@ Return the vertical order traversal of the binary tree.
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from collections import deque
+from typing import List
+from collections import deque, OrderedDict
 
 
 class Solution:
