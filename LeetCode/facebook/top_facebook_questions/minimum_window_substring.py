@@ -91,6 +91,26 @@ class Solution:
         return '' if ans[0] == float("inf") else s[ans[1]:ans[2] + 1]
 
 
+from collections import Counter
+
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        counter = Counter(t)
+        l, r = 0, 0
+        min_string_len = float("inf")
+        min_string = None
+        while r < len(s):
+            while l <= r:
+                substring = Counter(s[l:r + 1])
+                if substring == counter:
+                    if min_string_len < r - l + 1:
+                        min_string_len = r - l + 1
+                        min_string = s[l:r + 1]
+                l += 1
+            r += 1
+        return min_string
+
 
 
 
