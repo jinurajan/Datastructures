@@ -34,6 +34,7 @@ n == grid[i].length
 1 <= m, n <= 300
 grid[i][j] is '0' or '1'.
 """
+from typing import List
 
 from collections import deque
 
@@ -93,3 +94,34 @@ class Solution:
                         count += 1
         return count
 
+
+from collections import deque
+
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        rows = len(grid)
+        cols = len(grid[0])
+
+        def dfs(x, y, visited):
+            if x < 0 or x >= rows or y < 0 or y >= cols:
+                return
+            if (x, y) in visited or grid[x][y] == "0":
+                return
+            visited.add((x, y))
+            neighbors = [(0, 1), (0, -1), (-1, 0), (1, 0)]
+            for idx, idy in neighbors:
+                dfs(x + idx, y + idy, visited)
+
+        islands = 0
+        visited = set()
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j] == "1" and (i, j) not in visited:
+                    dfs(i, j, visited)
+                    print(visited)
+                    islands += 1
+        return islands
+
+grid = [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]
+print(Solution().numIslands(grid))
