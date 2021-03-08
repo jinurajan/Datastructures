@@ -39,11 +39,8 @@ class Solution:
         return T[-1]
 
 class Solution:
-    def minElements(self, nums: List[int], limit: int, goal: int) -> int:
-        target = abs(sum(nums) - goal)
-        limit = abs(limit)
-        count, r = divmod(target, limit)
-        if r:
-            count += 1
-        return count
-
+	def minElements(self, nums: List[int], limit: int, goal: int) -> int:
+		target = abs(sum(nums) - goal)
+		limit = abs(limit)
+		count, r = divmod(target, limit)
+		return count+1 if r else count
