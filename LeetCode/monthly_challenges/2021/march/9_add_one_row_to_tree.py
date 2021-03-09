@@ -66,8 +66,9 @@ class Solution:
             new_node = TreeNode(v)
             new_node.left = root
             return new_node
-        queue = deque([(root, 1)])
-        while queue:
+        depth = 1
+        queue = deque([(root, depth)])
+        while depth < d:
             size = len(queue)
             while size:
                 node, depth = queue.popleft()
@@ -99,6 +100,48 @@ class Solution:
                         queue.append((node.right, depth+1))
                 size -= 1
         return root
+
+from collections import deque
+class Solution1:
+    def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
+        depth = 1
+        queue = [root]
+        if d == 1:
+            new_root = TreeNode(v)
+            new_root.left = root
+            root = new_root
+        while depth < d:
+            if depth + 1 == d:
+                for i in range(len(queue)):
+                    new_l_node = TreeNode(v)
+                    new_r_node = TreeNode(v)
+                    if queue[i].left:
+                        left = queue[i].left
+                    else:
+                        left = None
+                    if queue[i].right:
+                        right = queue[i].right
+                    else:
+                        right = None
+                    queue[i].left = new_l_node
+                    queue[i].right = new_r_node
+                    new_l_node.left = left
+                    new_r_node.right = right
+                break
+            q = []
+            while queue:
+                node = queue.pop(0)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            queue = q
+            depth += 1
+        return root
+
+
+
+
 def inorder_traversal(node):
     if not node:
         return
