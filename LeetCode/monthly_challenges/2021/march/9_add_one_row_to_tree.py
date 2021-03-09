@@ -101,7 +101,6 @@ class Solution:
                 size -= 1
         return root
 
-from collections import deque
 class Solution1:
     def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
         depth = 1
@@ -139,6 +138,66 @@ class Solution1:
             depth += 1
         return root
 
+
+
+class Solution2:
+    def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
+        depth = 1
+        queue = [root]
+        if d == 1:
+            new_root = TreeNode(v)
+            new_root.left = root
+            root = new_root
+        while depth < d:
+            if depth + 1 == d:
+                for i in range(len(queue)):
+                    new_l_node = TreeNode(v)
+                    new_r_node = TreeNode(v)
+                    if queue[i].left:
+                        left = queue[i].left
+                    else:
+                        left = None
+                    if queue[i].right:
+                        right = queue[i].right
+                    else:
+                        right = None
+                    queue[i].left = new_l_node
+                    queue[i].right = new_r_node
+                    new_l_node.left = left
+                    new_r_node.right = right
+                break
+            q = []
+            while queue:
+                node = queue.pop()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            queue = q
+            depth += 1
+        return root
+
+
+from collections import deque
+class Solution:
+    def addOneRow(self, root: TreeNode, v: int, d: int) -> TreeNode:
+        """ Using dfs ie recursion stack"""
+        if d == 1:
+            return TreeNode(v, left=root)
+
+        def dfs(node, v, d, depth):
+            if depth + 1  == d:
+                left_tree = TreeNode(v, left=node.left)
+                right_tree = TreeNode(v, right=node.right)
+                node.left = left_tree
+                node.right = right_tree
+                return
+            if node.left:
+                dfs(node.left, v, d, depth+1)
+            if node.right:
+                dfs(node.right, v, d, depth+1)
+        dfs(root, v, d, 1)
+        return root
 
 
 
