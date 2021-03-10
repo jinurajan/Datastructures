@@ -20,6 +20,7 @@ n == mat[i].length
 1 <= m, n, K <= 100
 1 <= mat[i][j] <= 100
 """
+from typing import List
 
 
 class Solution:
@@ -27,9 +28,11 @@ class Solution:
         rows = len(mat)
         cols = len(mat[0])
         dp = [[0 for i in range(cols + 1)] for _ in range(rows + 1)]
+        print(dp)
         for i in range(1, rows + 1):
             for j in range(1, cols + 1):
                 dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1] + mat[i - 1][j - 1]
+        print(dp)
         result = [[0] * (cols) for _ in range(rows)]
         for i in range(rows):
             for j in range(cols):
@@ -41,3 +44,6 @@ class Solution:
                     topright_y] + dp[topleft_x][topleft_y]
         return result
 
+mat = [[1,2,3],[4,5,6],[7,8,9]]
+K = 1
+print(Solution().matrixBlockSum(mat, K))
