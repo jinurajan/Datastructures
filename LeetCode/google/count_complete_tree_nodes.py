@@ -64,7 +64,7 @@ class Solution:
                     node = node.right
             return node
 
-        d = depth(root, 0) -1 
+        d = depth(root, 0) -1
         # if it has all nodes required see if there is any missing
         N = pow(2, d) - 1
         low, high = 0, N
