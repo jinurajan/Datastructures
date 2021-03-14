@@ -52,3 +52,14 @@ class Solution:
             node.next = ListNode(list_nodes.pop(0))
             node = node.next
         return dummy_node.next
+
+class Solution:
+    def swapNodes(self, head: ListNode, k: int) -> ListNode:
+        list_nodes =[]
+        node=head
+        while node:
+            list_nodes.append(node)
+            node = node.next
+        n1, n2 = list_nodes[k-1], list_nodes[-k]
+        n1.val, n2.val = n2.val, n1.val
+        return head
