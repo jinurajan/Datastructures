@@ -1,0 +1,8 @@
+Complexity of doing M union-find operation on N objects / nodes
+
+Quick Find = M N
+Quick Union = M N
+Weighted Quick Union = N + M logN
+Quick Union with Path compression = N + M logN
+Weighted Quick Union with Path Compression = N + M * logN
+
