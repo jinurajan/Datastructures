@@ -31,6 +31,7 @@ n == boxes.length
 1 <= n <= 2000
 boxes[i] is either '0' or '1'.
 """
+from typing import List
 
 
 class Solution:
@@ -40,9 +41,15 @@ class Solution:
         for i in range(len(boxes)):
             op = 0
             for idx in index_set:
-                if i == idx:
-                    continue
-                op += abs(i - idx)
+                op += abs(i-idx)
             result.append(op)
         return result
 
+class Solution:
+    def minOperations(self, boxes: str) -> List[int]:
+        result = []
+        index_set = set([idx for idx, n in enumerate(boxes) if n == '1'])
+        for i in range(len(boxes)):
+            op = sum(abs(i-j) for j in index_set)
+            result.append(op)
+        return result
