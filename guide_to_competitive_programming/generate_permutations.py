@@ -22,4 +22,20 @@ def generate_permutations(array):
     search()
     return result
 
+def generate_permutations(nums):
+    n = len(nums)
+    results = []
+
+    def backtrack(first):
+        if first == n:
+            results.append(nums[:])
+        else:
+            for i in range(first, n):
+                nums[first], nums[i] = nums[i], nums[first]
+                backtrack(first + 1)
+                nums[first], nums[i] = nums[i], nums[first]
+    backtrack(0)
+    return results
+
+
 print(generate_permutations([1,2,3]))
