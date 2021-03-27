@@ -19,7 +19,18 @@ Output: 6
 Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 """
 
+
 class Solution:
     def countSubstrings(self, s: str) -> int:
+
+        def is_palindrome(s):
+            return s == s[::-1]
+
+        count = 0
+        n = len(s)
+        for l in range(n):
+            for r in range(l, n):
+                count += is_palindrome(s[l:r + 1])
+        return count
 
 print(Solution().countSubstrings("abcd"))
