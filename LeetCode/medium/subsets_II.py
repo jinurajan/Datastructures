@@ -63,3 +63,82 @@ class Solution:
                 mask >>= 1
             result.add(tuple(subset))
         return list(result)
+
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        n = len(nums)
+        visited = set()
+        results = []
+        subset = []
+
+        def backtrack(index):
+            if index == n:
+                if tuple(subset) not in visited:
+                    results.append(subset[:])
+                    visited.add(tuple(subset))
+                return
+            backtrack(index + 1)
+            subset.append(nums[index])
+            backtrack(index + 1)
+            subset.pop()
+
+        backtrack(0)
+        return results
+
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        results = []
+        n = len(nums)
+
+        def backtrack(index, subset):
+            if index == n:
+                results.append(subset[:])
+                return
+            count = 1
+            j = index + 1
+            while j <= n - 1 and nums[index] == nums[j]:
+                j += 1
+                count += 1
+            # excluding duplicate values
+            backtrack(index + count, subset)
+            # including duplicate values in the subset
+            for c in range(1, count + 1):
+                subset.append(nums[index])
+                backtrack(index + count, subset)
+            for c in range(1, count + 1):
+                subset.pop()
+        backtrack(0, [])
+        return results
+
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        subsets = [[]]
+
+        prev = None
+
+        for i in range(len(nums)):
+
+            if i and nums[i] == nums[i - 1]:
+                copy = prev
+            else:
+                copy = subsets[:]
+
+            level = []
+            for element in copy:
+                temp = element + [nums[i]]
+                level.append(temp)
+                subsets.append(temp)
+            prev = level
+            print(subsets, prev)
+            print("************")
+
+        return subsets
+
+
+print(Solution().subsetsWithDup([2,1,2]))

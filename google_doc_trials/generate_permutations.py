@@ -18,6 +18,22 @@ def generate_permutations(array):
 	backtrack([])
 	return result
 
+
+def generate_permutations(array):
+	n = len(array)
+	result = []
+	def search(first):
+		if first == n:
+			result.append(array[:])
+			return
+		for i in range(first, n):
+			array[first], array[i] = array[i], array[first]
+			search(first+1)
+			array[first], array[i] = array[i], array[first]
+	search(0)
+	return result
+
+
 print(generate_permutations([1,2,3]))
 
 
