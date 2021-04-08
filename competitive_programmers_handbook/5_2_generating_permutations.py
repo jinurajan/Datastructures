@@ -44,11 +44,11 @@ def generate_permutations_3(array):
     def backtrack(first):
         if first == n:
             results.append(array[:])
-        else:
-            for i in range(first, n):
-                array[first], array[i] = array[i], array[first]
-                backtrack(first+1)
-                array[first], array[i] = array[i], array[first]
+            return
+        for i in range(first, n):
+            array[first], array[i] = array[i], array[first]
+            backtrack(first+1)
+            array[first], array[i] = array[i], array[first]
     backtrack(0)
     return results
 
