@@ -28,7 +28,8 @@ Constraints:
 strs[i] consists of lower-case English letters.
 
 """
-
+from typing import List
+from collections import defaultdict
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
@@ -48,3 +49,20 @@ class Solution:
             anagram_map[''.join(sorted(word))].append(word)
         return anagram_map.values()
 
+anagram_map = defaultdict(list)
+preprocessed = False
+
+
+def find_anagrams(anagram, text):
+    global preprocessed, anagram_map
+    if preprocessed:
+        return anagram_map.get(''.join(sorted(anagram.lower())), [])
+    else:
+        for word in text.split(" "):
+            anagram_map[''.join(sorted(word.lower()))].append(word)
+        preprocessed = True
+        return anagram_map.get(''.join(sorted(anagram.lower())), [])
+
+text = "Steal the pears from tesla and spare the tales"
+print(find_anagrams('steal', text))
+print(find_anagrams('pears', text))
