@@ -1,16 +1,18 @@
 """
 
 """
+from typing import List
+from collections import defaultdict
+from bisect import bisect_left
 
+from collections import Counter
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         if len(nums) < 3 or min(nums) > 0 or max(nums) < 0:
             return []
         res = []
-        count = defaultdict(int)
-        for num in nums:
-            count[num] += 1
+        count = Counter(nums)
         nums = sorted(count)
         for idx, num in enumerate(nums):
             if num > 0:
@@ -32,7 +34,7 @@ class Solution:
         return res
 
 
-class Solution:
+class Solution1:
     def two_sum(self, nums, right, target):
         left = 0
         results = []
@@ -59,3 +61,7 @@ class Solution:
                     results.append(r)
                     visited.add(tuple(r))
         return results
+
+
+nums = [-1,0,1,2,-1,-4]
+print(Solution().threeSum(nums))
