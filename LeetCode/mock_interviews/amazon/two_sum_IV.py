@@ -67,3 +67,18 @@ class Solution:
 
         return traverse(root, k, nodeset)
 
+
+class Solution:
+    def findTarget(self, root: TreeNode, k: int) -> bool:
+
+        node_val_set = set()
+
+        def dfs(node):
+            if not node:
+                return False
+            if k - node.val in node_val_set:
+                return True
+            node_val_set.add(node.val)
+            return dfs(node.left) or dfs(node.right)
+
+        return dfs(root)
