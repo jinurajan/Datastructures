@@ -14,6 +14,7 @@ class Solution:
         res = []
         count = Counter(nums)
         nums = sorted(count)
+        print(nums)
         for idx, num in enumerate(nums):
             if num > 0:
                 break

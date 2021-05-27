@@ -44,6 +44,42 @@ class Solution(object):
         return len(intervals) - counter
 
 
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        # sort by starting point
+        intervals = sorted(intervals, key=lambda x: x[1])
+        n = len(intervals)
+        prev = count = 0
+        end = intervals[0][1]
+        count = 1
+        for i in range(1, n):
+            if intervals[i][0] >= end:
+                end = intervals[i][1]
+                count += 1
+        return n - count
+
+
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        # sort by starting point
+        intervals = sorted(intervals, key=lambda x: x[0])
+        n = len(intervals)
+        prev = count = 0
+        for i in range(1, n):
+            if intervals[prev][1] > intervals[i][0]:
+                if intervals[prev][1] > intervals[i][1]:
+                    prev = i
+                # non overlapping
+                count += 1
+            else:
+                prev = i
+        return count
+
+
 print Solution().eraseOverlapIntervals([[1,2],[1,2],[1,2]]) == 2
 print Solution().eraseOverlapIntervals([[1,2],[2,3]]) == 0
 print Solution().eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]]) == 1

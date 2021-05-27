@@ -37,3 +37,7 @@ class Solution:
         for i in range(n):
             res[i] = L[i] * R[i]
         return res
+
+
+nums = [1, 2, 3, 4]
+print(Solution().productExceptSelf(nums))
