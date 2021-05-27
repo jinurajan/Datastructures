@@ -68,6 +68,26 @@ def is_palindrome_topdown(dpIsPalindrome, st, x, y):
   return True if dpIsPalindrome[x][y] == 1 else False
 
 
+def find_MPP_cuts_bottomup(st):
+    n = len(st)
+    is_palindrome = [[False for _ in range(n)] for _ in range(n)]
+    for i in range(n):
+        is_palindrome[i][i] = True
+    for start in range(n-1, -1, -1):
+        for end in range(start+1, n):
+            if st[start] == st[end]:
+                if end - start == 1 or is_palindrome[start+1][end-1]:
+                    is_palindrome[start][end] = True
+    cuts = [0 for _ in range(n)]
+    for start in range(n-1, -1, -1):
+        min_cuts = n
+        for end in range(n-1, start-1, -1):
+            if is_palindrome[start][end]:
+                min_cuts = 0 if end == n-1 else min(min_cuts, 1+cuts[end+1])
+        cuts[start] = min_cuts
+    return cuts[0]
+
+
 print(find_MPP_cuts("abdbca"))
 print(find_MPP_cuts("cdpdd"))
 print(find_MPP_cuts("pqr"))
@@ -80,3 +100,10 @@ print(find_MPP_cuts_top_down("cdpdd"))
 print(find_MPP_cuts_top_down("pqr"))
 print(find_MPP_cuts_top_down("pp"))
 print(find_MPP_cuts_top_down("madam"))
+
+
+print(find_MPP_cuts_bottomup("abdbca"))
+print(find_MPP_cuts_bottomup("cdpdd"))
+print(find_MPP_cuts_bottomup("pqr"))
+print(find_MPP_cuts_bottomup("pp"))
+print(find_MPP_cuts_bottomup("madam"))
