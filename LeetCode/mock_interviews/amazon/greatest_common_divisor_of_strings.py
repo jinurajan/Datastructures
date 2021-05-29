@@ -26,15 +26,32 @@ Constraints:
 str1 and str2 consist of English uppercase letters.
 
 """
-from math import gcd
+from functools import lru_cache
+
 class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        @lru_cache(None)
+        def reduce(source, target):
+            if not source: return target
+            if not target: return source
+            if len(source) >= len(target):
+                source, target = target, source
+            if target[:len(source)] == source:
+                return reduce(target[len(source):], source)
+            return ""
+        return reduce(str1, str2)
+
+
+
+from math import gcd
+class Solution1:
     def gcdOfStrings(self, str1: str, str2: str) -> str:
         if str1 + str2 == str2 + str1:
             return str1[: gcd(len(str1), len(str2))]
         else:
             return ''
 
-class Solution:
+class Solution2:
     def gcdOfStrings(self, str1: str, str2: str) -> str:
         if not str1: return str2
         if not str2: return str1
@@ -42,3 +59,7 @@ class Solution:
         if str2[:len(str1)] == str1:
             return self.gcdOfStrings(str2[len(str1):], str1)
         return ''
+
+str1 = "ABCABC"
+str2 = "ABC"
+print(Solution().gcdOfStrings(str1, str2))
