@@ -15,6 +15,9 @@ Output: [12, 11, 12]
 
 from heapq import *
 
+def find_k_largest_numbers(nums, k):
+  return nlargest(k, nums)
+
 
 def find_k_largest_numbers(nums, k):
   minHeap = []
