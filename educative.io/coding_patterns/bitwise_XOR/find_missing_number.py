@@ -3,7 +3,7 @@ Given an array of n-1n−1 integers in the range from 11 to nn, find the one num
 """
 
 
-def find_missing_number(arr):
+def find_missing_number1(arr):
     n = len(arr) + 1
     # find sum of all numbers from 1 to n.
     s1 = 0
@@ -32,6 +32,7 @@ def find_missing_number(arr):
 def main():
     arr = [1, 5, 2, 6, 4]
     print('Missing number is:' + str(find_missing_number(arr)))
+    print('Missing number is:' + str(find_missing_number1(arr)))
 
 
 main()

@@ -96,4 +96,5 @@ class Solution:
 
 
 words = ["wrt","wrf","er","ett","rftt"]
+print(Solution1().alienOrder(words))
 print(Solution().alienOrder(words))
