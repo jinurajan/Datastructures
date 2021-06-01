@@ -25,7 +25,7 @@ class QueueUsing2Stacks(object):
 
     def dequeue(self):
         if self.stack1.isempty() and self.stack2.isempty():
-            return "Queue Empty"
+            raise Exception("Queue is Empty")
         if self.stack2 is None:
             # second stack is empty
             while not self.stack1.isempty():
@@ -33,9 +33,9 @@ class QueueUsing2Stacks(object):
                 print x
                 self.stack2.push(x)
             print self.stack2.stack
-        # x = self.stack2.peek()
-        # self.stack2.pop()
-        # return x
+        x = self.stack2.peek()
+        self.stack2.pop()
+        return x
 
 
 if __name__ == "__main__":

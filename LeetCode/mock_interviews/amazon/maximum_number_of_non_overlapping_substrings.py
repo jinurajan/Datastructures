@@ -36,6 +36,8 @@ s contains only lowercase English letters.
 
 
 """
+from typing import List
+from collections import defaultdict
 
 class Solution:
     def maxNumOfSubstrings(self, s: str) -> List[str]:
@@ -69,7 +71,7 @@ class Solution:
             print("min_index", min_index, "max_index", max_index)
             print(seen)
             if dp[i] != prev and prev not in seen:
-                result.append(s[min_index:max_inde x +1])
+                result.append(s[min_index:max_index +1])
                 print("result", result)
                 print("interval[i]", intervals[i])
                 min_index = max_index+1
@@ -84,7 +86,7 @@ class Solution:
 
 
 
-class Solution:
+class Solution1:
     def maxNumOfSubstrings(self, s: str) -> List[str]:
         n = len(s)
         left = defaultdict(lambda: float('inf'))
@@ -120,6 +122,47 @@ class Solution:
         return ans
 
 
+class Solution2:
+    def maxNumOfSubstrings(self, s: str) -> List[str]:
+        n = len(s)
+        left = defaultdict(lambda: float('inf'))
+        right = defaultdict(lambda: float('-inf'))
+        for i, c in enumerate(s):
+            left[c] = min(left[c], i)
+            right[c] = max(right[c], i)
+        print(left, right)
+
+        def extend(i):
+            p = right[s[i]]
+            j = i
+            while j < p:
+                c = s[j]
+                if left[c] < i:
+                    return -1
+                p = max(p, right[c])
+                j += 1
+            return j
+
+        last = -1
+        ans = []
+        for i, c in enumerate(s):
+            if i != left[c]:
+                continue
+            j = extend(i)
+            if j == -1:
+                continue
+            if i > last:
+                ans += s[i:j + 1],
+            else:
+                ans[-1] = s[i:j + 1]
+            last = j
+        return ans
+
+
+s = "adefaddaccc"
+# print(Solution().maxNumOfSubstrings(s))
+# print(Solution1().maxNumOfSubstrings(s))
+print(Solution2().maxNumOfSubstrings(s))
 
 
 

@@ -44,7 +44,7 @@ def count_ways_bottom_up(n):
     return dp[-1]
 
 def count_ways_mem_optimized(n):
-    n1, n2, n3, tmp = 1, 1, 2, 0
+    n1, n2, n3 = 1, 1, 2
     for i in range(3, n+1):
         n1, n2, n3 = n2, n3, n1+n2+n3
     return n3

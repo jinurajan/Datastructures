@@ -37,9 +37,9 @@ def find_min_fee_top_down(fee):
         if index > n-1:
             return 0
         if dp[index] == 0:
-            dp[index] = min(find_min_fee_recursive(fee, index+1, n),
-               find_min_fee_recursive(fee, index+2, n),
-               find_min_fee_recursive(fee, index+3, n)) + fee[index]
+            dp[index] = min(find_min(index+1),
+               find_min(index+2),
+               find_min(index+3)) + fee[index]
         return dp[index]
 
     return find_min(0)

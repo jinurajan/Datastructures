@@ -50,7 +50,7 @@ def count_min_jumps_top_down(jumps):
         total_jumps = math.inf
         start, end = index + 1, index + jumps[index]
         while start < n and start <= end:
-            min_jumps = count_min_jumps_recursive(jumps, start)
+            min_jumps = count_min_jumps(start)
             start += 1
             if min_jumps != math.inf:
                 total_jumps = min(total_jumps, min_jumps + 1)
