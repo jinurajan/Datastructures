@@ -1,3 +1,4 @@
+
 """
 Shortest Path with Alternating Colors
 Consider a directed graph, with nodes labelled 0, 1, ..., n-1.  In this graph, each edge is either red or blue, and there could be self-edges or parallel edges.
