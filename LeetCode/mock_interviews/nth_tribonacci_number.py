@@ -28,6 +28,15 @@ The answer is guaranteed to fit within a 32-bit integer, ie. answer <= 2^31 - 1.
 
 """
 
+mem_map = {0:0, 1:1, 2:1}
+class Solution:
+    def tribonacci(self, n: int) -> int:
+        if n in mem_map:
+            return mem_map[n]
+        trib_n = self.tribonacci(n-1) + self.tribonacci(n-2) + self.tribonacci(n-3)
+        mem_map[n] = trib_n
+        return trib_n
+
 
 class Solution:
     def __init__(self):
