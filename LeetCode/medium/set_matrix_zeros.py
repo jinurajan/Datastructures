@@ -39,7 +39,7 @@ class Solution:
                     matrix[i][0] = 0
                     matrix[0][j] = 0
         for i in range(1, rows):
-            for j in range(2, cols):
+            for j in range(1, cols):
                 if matrix[i][0] == 0 or matrix[0][j] == 0:
                     matrix[i][j] = 0
         if matrix[0][0] == 0:
