@@ -85,6 +85,7 @@ class Codec:
 
     def str_to_int(self, x:str) -> int:
         result = 0
+        # get integer from string eg: '0003' -> 3 
         for ch in x:
             result = result * 256 + ord(ch)
         return result
