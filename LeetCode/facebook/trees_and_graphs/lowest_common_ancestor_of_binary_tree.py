@@ -60,6 +60,7 @@ class Solution1:
         while q not in ancestors:
             q = parent[q]
         return q
+
 class Solution:
     BOTH_PENDING = 2
     LEFT_DONE = 1
@@ -130,10 +131,28 @@ class Solution:
 
         return None
 
-from collections import deque
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        parent_map = {}
+        while p:
+            parent_map[p] = True
+            p = p.parent
+        while q:
+            if q in parent_map:
+                return q
+            q = q.parent
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        parent_set = set()
+        while p:
+            parent_set.add(p)
+            p = p.parent
+        while q:
+            if q in parent_set:
+                return q
+            q = q.parent
 
 
 
