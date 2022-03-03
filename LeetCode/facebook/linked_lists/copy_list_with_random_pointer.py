@@ -42,6 +42,30 @@ class Node:
         self.next = next
         self.random = random
 
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        node_map = {}
+        dummy_node = Node(x=-1)
+        new_list_node = dummy_node
+        current_node = head
+        
+        def copy_node(node):
+            if not node:
+                return None
+            if node in node_map:
+                return node_map[node]
+            new_node = Node(node.val)
+            node_map[node] = new_node
+            return new_node
+    
+        while current_node:
+            new_list_node.next = copy_node(current_node)
+            if current_node.random:
+                new_list_node.next.random = copy_node(current_node.random)
+            current_node = current_node.next
+            new_list_node = new_list_node.next
+        return dummy_node.next
+
 class Solution1:
     def copyRandomList(self, head: 'Node') -> 'Node':
         if not head:
