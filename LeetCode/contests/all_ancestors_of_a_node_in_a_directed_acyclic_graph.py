@@ -1,27 +1,53 @@
 
 
+from functools import lru_cache
 from typing import List
-from collections import defaultdict
+from collections import defaultdict, deque
+
 
 class Solution:
     def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
-        in_graph = defaultdict(list)
+        result = [set() for _ in range(n)]
+        graph = defaultdict(list)
+        in_degree = [0] * n
+        for u, v in edges:
+            result[v].add(u)
+            graph[u].append(v)
+            in_degree[v] += 1
+        
+        #topoological sort: start with those with indegree 0 #bfs
+        dq = deque([u for u, degree in enumerate(in_degree) if degree==0])
+        while dq:
+            node = dq.popleft()
+            for neighbor in graph[node]:
+                # if 3 -> 5 then add 3's ancestors to the list
+                result[neighbor].update(result[node])
+                in_degree[neighbor] -= 1
+                if in_degree[neighbor] == 0:
+                    # add to queue for processing
+                    dq.append(neighbor)
+        return [sorted(s) for s in result]
+
+
+class Solution1:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        result = [set() for _ in range(n)]
+        graph = defaultdict(list)
+        in_degrees = [0] * n
         for u,v in edges:
-            in_graph[v].append(u)
-        result_set = defaultdict(set)
-        def dfs(node, ancestors):
-            for neighbour in in_graph[node]:
-                if result_set[neighbour]:
-                    ancestors.update(result_set[neighbour])
-                else:
-                    ancestors.add(neighbour)
-                dfs(neighbour, ancestors)
-        result = []
-        for i in range(n):
-            ancestors = set()
-            dfs(i, ancestors)
-            result.append(sorted(ancestors))
-        return result
+            result[v].add(u)
+            graph[u].append(v)
+            in_degrees[v] += 1
+        queue = [node for node, degree in enumerate(in_degrees) if degree == 0]
+        while queue:
+            node = queue.pop(0)
+            for nei in graph[node]:
+                result[nei].update(result[node])
+                in_degrees[nei] -= 1
+                if in_degrees[nei] == 0:
+                    queue.append(nei)       
+        return [sorted(s) for s in result]
+        
 
             
 
