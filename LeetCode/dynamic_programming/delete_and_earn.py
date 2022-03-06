@@ -32,8 +32,10 @@ Constraints:
 1 <= nums.length <= 2 * 104
 1 <= nums[i] <= 104
 """
-from collections import Counter
+from collections import Counter, defaultdict
 from typing import List
+
+
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
         points, prev, curr = Counter(nums), 0, 0
@@ -45,7 +47,7 @@ class Solution:
 
 class Solution1(object):
     def deleteAndEarn(self, nums):
-        points, prev, curr = collections.Counter(nums), 0, 0
+        points, prev, curr = Counter(nums), 0, 0
         for value in range(10001):
             prev, curr = curr, max(prev + value * points[value], curr)
         return curr
@@ -71,3 +73,35 @@ class Solution3(object):
         for value in points:
             prev, curr = curr, max(prev + value, curr)
         return curr
+
+class Solution4:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        points = defaultdict(int)
+        max_number = 0
+        for num in nums:
+            points[num] += num
+            max_number = max(max_number, num)
+        
+        two_back = 0
+        one_back = points[1]
+        for num in range(2, max_number+1):
+            two_back, one_back = one_back, max(one_back, two_back+points[num])
+        return one_back
+        
+
+
+class Solution5:
+    # TLE -> Time limit exceeded
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        points = Counter(nums)
+        for num,val in points.items():
+            points[num] = num*val
+        max_number = max(points)
+        def max_points(n):
+            if n == 0:
+                return 0
+            if n == 1:
+                return points[1]
+            return max(max_points(n-1), max_points(n-2)+points[n])
+        return max_points(max_number)
+        
