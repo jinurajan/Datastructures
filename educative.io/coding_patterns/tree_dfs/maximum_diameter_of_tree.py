@@ -14,7 +14,9 @@ class TreeDiameter:
 
     def find_diameter(self, root):
         max_dia = float("-inf")
-
+        #special case handling for tree with one element
+        if not root.left and not root.right:
+            return 0
         def dfs(node):
             nonlocal max_dia
             if not node:
@@ -23,8 +25,11 @@ class TreeDiameter:
                 return 1
             l_dia = max(dfs(node.left), 0)
             r_dia = max(dfs(node.right), 0)
-            max_dia = max(max_dia, l_dia + r_dia + 1)
+            max_dia = max(max_dia, l_dia + r_dia)
             return max(l_dia, r_dia) + 1
+
+        dfs(root)
+        return max_dia
 
         dfs(root)
         return max_dia
