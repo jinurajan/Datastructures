@@ -45,7 +45,6 @@ class QuickFind():
 				self.graph[i] = qid
 
 
-
 q = QuickFind(10)
 q.union(1, 2)
 q.union(3, 4)

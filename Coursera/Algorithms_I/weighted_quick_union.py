@@ -64,11 +64,11 @@ q.union(7, 9)
 q.union(1, 9)
 
 
-print q.connected(2, 9)
-print q.graph
-print q.connected(2, 3)
-print q.connected(0, 6)
-print q.connected(4, 0)
+print(q.connected(2, 9))
+print(q.graph)
+print(q.connected(2, 3))
+print(q.connected(0, 6))
+print(q.connected(4, 0))
 
 
 		
