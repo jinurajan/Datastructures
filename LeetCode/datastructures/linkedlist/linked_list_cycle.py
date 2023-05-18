@@ -54,8 +54,8 @@ class Solution(object):
         if not head:
             return False
         slow_ptr = head
-        fast_ptr = head.next
-        while slow_ptr.next and fast_ptr and fast_ptr.next:
+        fast_ptr = head
+        while fast_ptr and fast_ptr.next:
             if fast_ptr is slow_ptr:
                 return True
             slow_ptr = slow_ptr.next
