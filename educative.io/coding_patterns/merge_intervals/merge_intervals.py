@@ -31,6 +31,7 @@ def merge_intervals(intervals):
     if not intervals:
         return None
     result = []
+    # sort the array by start time if not sorted already
     result.append(Interval(intervals[0].start, intervals[0].end))
     for i in range(1, len(intervals)):
         last_added_interval = result[len(result) - 1]
