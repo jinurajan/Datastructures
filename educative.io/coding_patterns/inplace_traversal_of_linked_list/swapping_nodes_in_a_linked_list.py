@@ -1,22 +1,6 @@
 """
-Given the linked list and an integer 
-�
-k
-, return the head of the linked list after swapping the values of the 
-�
-�
-ℎ
-k 
-th
- 
- node from the beginning and the 
-�
-�
-ℎ
-k 
-th
- 
- node from the end of the linked list.
+Given the linked list and an integer k return the head of the linked list after swapping the values of the kth node from the beginning and the 
+kth node from the end of the linked list.
 
 """
 
