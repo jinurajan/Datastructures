@@ -29,9 +29,6 @@ class MedianOfAStream:
     else:
       return -self.max_heap[0] / 1.0
 
-    return 0.0
-
-
 def main():
   medianOfAStream = MedianOfAStream()
   medianOfAStream.insert_num(3)
