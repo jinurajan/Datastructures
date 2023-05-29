@@ -47,6 +47,7 @@ def find_permutations1(nums):
                     permutations.append(new_perm)
     return result
 
+
 def main():
   print("Here are all the permutations: " + str(find_permutations1([1, 3, 5])))
 

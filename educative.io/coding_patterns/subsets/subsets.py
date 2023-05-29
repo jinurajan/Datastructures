@@ -47,7 +47,7 @@ def find_subsets(nums):
 
 
 
-def find_subsets(num):
+def find_subsets(nums):
     subsets = []
     n = len(nums)
     for b in range(1 << n):
