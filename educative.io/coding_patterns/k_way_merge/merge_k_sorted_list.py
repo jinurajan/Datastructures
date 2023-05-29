@@ -52,8 +52,6 @@ def merge_lists_1(lists):
         interval *= 2
     return lists[0] if total > 0 else None
 
-    return resultHead
-
 
 def merge_lists(lists):
     min_heap = []
