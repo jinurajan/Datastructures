@@ -1,7 +1,10 @@
 """
-Given the root of a binary tree, the task is to flatten the tree into a linked list using the same TreeNode class. The left child pointer of each node in the linked list should always be NULL, and the right child pointer should point to the next node in the linked list. The nodes in the linked list should be in the same order as that of the preorder traversal of the given binary tree.
 
 """
+
+# Import required functions
+from collections import deque
+
 # Template for binary tree node
 
 class BinaryTreeNode:
@@ -14,7 +17,6 @@ class BinaryTreeNode:
         self.next = None
         self.parent = None
         self.count = 0
-
 
 class BinaryTree:
     def __init__(self, *args):
@@ -82,43 +84,59 @@ class BinaryTree:
             tree_copy.root = self.get_tree_deep_copy_rec(self.root)
             return tree_copy
 
-def flatten_tree(root):
+# Tip: You may use some of the code templates provided
+# in the support files
+
+def level_order_traversal(root):
+    result = ""
+    # Write your code here
     if not root:
-        return
-    node = root
-    while node:
-        if node.left:
-            last = node.left
-            while last.right:
-                last = last.right
-            last.right = node.right
-            node.right = node.left
-            node.left = None
-        node = node.right 
-    return root
+        return "None"
+    queue = [root]
+    while queue:
+        l = len(queue)
+        for i in range(l):
+            node = queue.pop(0)
+            result += str(node.data)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+            if i < l-1:
+                result += ", "
+            else:
+                if not queue:
+                    continue
+                result += " : "
+    return result
 
 
-# Driver code
+
 def main():
+    # Creating a binary tree
+    input1 = [100, 50, 200, 25, 75, 350]
+    tree1 = BinaryTree(input1)
 
-    input_trees = [
-        [3, 2, 17, 1, 4, 19, 5],
-        [7, 6, 5, 4, 3, 2, 1],
-        [5, 4, 6, 3, 2, 7, 8, 1, 9],
-        [5, 2, 1, 6, 10, 11, 44],
-        [1, 2, 5, 3, 4, 6],
-        [-1, -2, -5, 1, 2, -6]
-    ]
-    y = 1
-    for i in input_trees:
-        tree = BinaryTree(i)
-        print(y, ". Binary tree:", sep="")
-        display_tree(tree.root, None)
-        tree1 = flatten_tree(tree.root)
-        print(" Flattened tree:", sep="")
-        display_tree(tree1, None)
-        print("-"*100)
-        y += 1
+    # Creating a right degenerate binary tree
+    input2 = sorted(input1)
+    tree2 = BinaryTree(input2)
+
+    # Creating a left degenerate binary tree
+    input2.reverse()
+    tree3 = BinaryTree(input2)
+
+    # Creating a single node binary tree
+    tree4 = BinaryTree(100)
+
+    roots = [tree1.root, tree2.root, tree3.root, tree4.root, None]
+
+    for i in range(len(roots)):
+        print(i+1, ".\tBinary Tree:", sep = "")
+        display_tree(roots[i])
+        # Printing the in-order list using the method we just implemented
+        print("\n\tLevel order traversal: ", sep = "", end = "")
+        print(level_order_traversal(roots[i]))
+        print("\n", "-"*100, "\n", sep = "")
 
 
 if __name__ == '__main__':
