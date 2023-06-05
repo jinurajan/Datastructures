@@ -25,7 +25,7 @@ def min_window(s, t):
     window_counter = Counter()
     start, end = 0, 0
     current = 0
-    required = len(t)
+    required = len(t_counter)
     while end < len(s):
         if s[end] in t_counter:
             window_counter[s[end]] += 1

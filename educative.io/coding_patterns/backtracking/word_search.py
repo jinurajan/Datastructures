@@ -9,7 +9,7 @@ board and word consists of only lowercase and upper case english letters
 The search is not case sensitive
 """
 def valid_indices(x, y, rows,cols):
-    if x < rows and y < cols:
+    if 0 <= x < rows and 0 <= y < cols:
         return True
     return False
 
