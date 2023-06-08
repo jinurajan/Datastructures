@@ -5,6 +5,8 @@ Given an array nums containing n distinct numbers in the range [0, n], return th
 
 """
 
+from typing import List
+
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         n = len(nums)
