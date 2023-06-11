@@ -28,14 +28,14 @@ def shortest_path_from_start_end_optimized(start, end, edges):
     distance = [float("inf") for i in range(len(nodes)+1)]
     distance[start] = 0
     relaxed = True
+    # relax n-1 times to get shortest distance n times and see if it gets relaxed then it has negative cycles
     for i in range(1, len(nodes)):
         if not relaxed:
             print("breaking at", i)
             break
         for node, edges in graph.items():
             for nei, cost in edges:
-                if distance[nei] < distance[node] + cost:
-                    relaxed = True
+                relaxed = distance[nei] < distance[node] + cost
                 distance[nei] = min(distance[nei], distance[node] + cost)
     return distance[end]
 

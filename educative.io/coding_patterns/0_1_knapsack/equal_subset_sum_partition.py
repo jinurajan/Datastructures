@@ -49,8 +49,7 @@ def can_partition_recursive_topdown(dp, num, index, sum_val):
         return False
     if dp[index][sum_val] == -1:
         if num[index] <= sum_val:
-            if can_partition_recursive_topdown(dp, num, index+1, sum_val-num[index]):
-                dp[index][sum_val] = True
+            dp[index][sum_val] = can_partition_recursive_topdown(dp, num, index+1, sum_val-num[index]):
         else:
             dp[index][sum_val] = can_partition_recursive_topdown(dp, num, index+1, sum_val)
     return dp[index][sum_val]

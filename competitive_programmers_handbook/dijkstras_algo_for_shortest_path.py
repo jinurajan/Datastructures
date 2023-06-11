@@ -28,7 +28,7 @@ def shortest_path(start, edges):
             if new_dist < distance[nei]:
                 distance[nei] = new_dist
                 heapq.heappush(min_heap, (new_dist, nei))
-    return distance
+    return distance[end]
 
 
 
@@ -55,7 +55,7 @@ def shortest_path_from_start_end(start, end, edges):
             if new_dist < distance[nei]:
                 distance[nei] = new_dist
                 heapq.heappush(min_heap, (new_dist, nei))
-    return distance[nei]
+    return distance[end]
 
 edges = [[3, 2, 2], [3, 4, 6], [2, 1, 5], [1, 5, 1], [5, 4, 2], [1, 4, 9]]
 

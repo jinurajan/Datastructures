@@ -31,8 +31,31 @@ def traverse(root):
   return result
 
 
+from collections import deque
 
-  return result
+def traverse(root):
+    if not root:
+        return []
+    q = deque([root])
+    reverse = False
+    result = []
+    while q:
+        l = []
+        for i in range(len(q)):
+            node = q.popleft()
+            l.append(node.data)
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+        if not reverse:
+            result.append(l)
+        else:
+            result.append(l[::-1])
+        reverse = not reverse
+    
+    return result
+    
 
 
 def main():
