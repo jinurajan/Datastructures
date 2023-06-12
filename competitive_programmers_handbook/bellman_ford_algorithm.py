@@ -35,7 +35,7 @@ def shortest_path_from_start_end_optimized(start, end, edges):
             break
         for node, edges in graph.items():
             for nei, cost in edges:
-                relaxed = distance[nei] < distance[node] + cost
+                relaxed = distance[nei] > distance[node] + cost
                 distance[nei] = min(distance[nei], distance[node] + cost)
     return distance[end]
 

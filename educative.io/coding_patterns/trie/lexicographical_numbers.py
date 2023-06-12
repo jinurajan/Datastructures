@@ -17,12 +17,13 @@ class Trie():
         while value:
             value, integer = divmod(value, 10)
             result.append(integer)
-        return result
+        return result[::-1]
         
     
     # Function to insert a string in the trie
     def insert(self, number):
         node = self.root
+        print(self.get_integers(number))
         for c in self.get_integers(number):
             if c not in node.children:
                 node.children[c] = TrieNode()
@@ -47,33 +48,47 @@ class Trie():
             node = node.children.get(c)
         return True
 
+def format(list_integer):
+    result = 0
+    power = 0
+    for i in list_integer[::-1]:
+        result += i * pow(10, power)
+        power += 1
+    return result
+
 def lexicographical_order(n):
     trie = Trie()
     for i in range(1, n+1):
         trie.insert(i)
     result = []
-    stack = [trie.root]
-    while stack:
-        node = stack.pop()
-        for child in node.children:
-            result.append(child)
-            stack.append(node.children[child])
+    values = []
+    def dfs(node, values):
+        if not node:
+            return
+        if node.is_complete:
+            result.append(format(values[:]))
+        for child in sorted(node.children):
+            values.append(child)
+            dfs(node.children[child], values)
+            values.pop()
+    
+    dfs(trie.root, [])
     return result
 
-def lexicographical_order(n):
-    ans = []
-    def dfs(s):
-        ans.append(int(s))
-        for i in range(10):
-            if(int(s+str(i)) > n):
-                return
-            else:
-                if(s):
-                    dfs(s+str(i))
-    for i in range(1, min(n+1, 10)):
-        dfs(str(i))
+# def lexicographical_order(n):
+#     ans = []
+#     def dfs(s):
+#         ans.append(int(s))
+#         for i in range(10):
+#             if(int(s+str(i)) > n):
+#                 return
+#             else:
+#                 if(s):
+#                     dfs(s+str(i))
+#     for i in range(1, min(n+1, 10)):
+#         dfs(str(i))
     
-    return ans
+#     return ans
 
 
 lexicographical_order(12)
