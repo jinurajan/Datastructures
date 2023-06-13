@@ -29,7 +29,7 @@ n == grid[i].length
 grid[i][j] is either 0 or 1.
 
 """
-
+from typing import List
 
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
