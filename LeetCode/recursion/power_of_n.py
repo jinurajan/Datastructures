@@ -137,7 +137,7 @@ class Solution(object):
             if n % 2 == 1:
                 result *= pos * float(x)
             self.mem[n] = result
-        return pow(float(x), n)
+        return power(float(x), n)
 
 
 
