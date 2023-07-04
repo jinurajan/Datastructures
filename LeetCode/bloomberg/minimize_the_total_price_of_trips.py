@@ -160,3 +160,78 @@ class Solution:
         
     
         return totalCost - reduce
+
+
+
+from collections import defaultdict
+from collections import Counter
+import heapq
+
+class Solution:
+    def minimumTotalPrice(self, n: int, edges: List[List[int]], price: List[int], trips: List[List[int]]) -> int:
+        n = len(edges)+ 1
+        graph = {i: [] for i in range(n+1)}
+        
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        # find all actual path values with a map of number of visits on nodes in the path for each trips
+        sum_val = 0
+        counter = Counter()
+        for start, end in trips:
+            path, route_price = self.find_shortest_path(graph, start, end, price)
+            sum_val += route_price
+            for node in path:
+                counter[node] += 1
+        cache = {}
+        mx1 = self.find_min_price(None, 0, True, graph, counter, price, cache)
+        mx2 = self.find_min_price(None, 0, False, graph, counter, price, cache)
+        return min(mx1, mx2)
+    
+    def find_min_price(self, parent, node, selected, graph, counter, price, cache):
+        if (node, selected) in cache:
+            return cache[(node, selected)]
+        if selected:
+            cost = (price[node]//2) * counter[node]
+        else:
+            cost = price[node] * counter[node]
+        
+        mins = []
+        for neighbour in graph[node]:
+            if neighbour == parent:
+                continue
+            options = []
+            if not selected:
+                mx = self.find_min_price(node, neighbour, True, graph, counter, price, cache)
+                options.append(mx)
+            mx = self.find_min_price(node, neighbour, False, graph, counter, price, cache)
+            options.append(mx)
+            mins.append(min(options))
+        cache[(node, selected)] = cost + sum(mins)
+        return cost + sum(mins)
+        
+
+    
+    def find_shortest_path(self, graph, start, end, price):
+        parents = {}
+        distance = [float("inf") for _ in range(len(graph))]
+        distance[start] = price[start]
+        visited = set()
+        min_heap = [(0, start)]
+        while min_heap:
+            dist, node = heapq.heappop(min_heap)
+            if node in visited:
+                continue
+            visited.add(node)
+            for nei in graph[node]:
+                new_dist = distance[node] + price[nei]
+                if new_dist < distance[nei]:
+                    distance[nei] = new_dist
+                    parents[nei] = node
+                    heapq.heappush(min_heap, (new_dist, nei))
+        path = [end]
+        curr_node = end
+        while curr_node != start:
+            curr_node = parents[curr_node]
+            path.append(curr_node)
+        return path, distance[end]

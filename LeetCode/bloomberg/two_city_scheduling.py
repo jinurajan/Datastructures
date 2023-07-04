@@ -5,6 +5,8 @@ A company is planning to interview 2n people. Given the array costs where costs[
 
 Return the minimum cost to fly every person to a city such that exactly n people arrive in each city.
 """
+from typing import List
+
 
 class Solution:
     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
@@ -16,4 +18,13 @@ class Solution:
                 min_cost += difference[i][1]
             else:
                 min_cost += difference[i][2]
+        return min_cost
+
+class Solution:
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        min_cost = 0
+        costs.sort(key=lambda x: x[0]-x[1])
+        n = len(costs)// 2
+        for i in range(n):
+            min_cost += costs[i][0] + costs[i+n][1]
         return min_cost
