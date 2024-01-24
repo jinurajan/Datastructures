@@ -6,7 +6,7 @@ Use priority queue to get the node with lowest cost or path distance
 from collections import defaultdict
 import heapq
 
-def shortest_path(start, edges, end):
+def shortest_path(start, edges):
     graph = defaultdict(list)
     for u, v, w in edges:
         graph[u].append((v, w))
