@@ -22,7 +22,7 @@ solution.pick(1);
 import random
 
 from typing import List
-
+from collections import defaultdict
 
 class Solution1:
 

@@ -48,6 +48,21 @@ def is_palindrome(s):
             return False
     return False
     
+from collections import Counter
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        l = 0
+        r = len(s) - 1
+        while l < r:
+            if s[l] == s[r]:
+                l += 1
+                r -= 1
+            else:
+                tmp1 = s[:l] + s[l+1:]
+                tmp2 = s[:r] + s[r+1:]
+                return tmp1 == tmp1[::-1] or tmp2 == tmp2[::-1]
+        return True
+
 
 
 

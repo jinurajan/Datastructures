@@ -33,7 +33,7 @@ class Solution:
 
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
-        
+        # doing inorder LRoR 
         stack = []
         while True:
             while root:

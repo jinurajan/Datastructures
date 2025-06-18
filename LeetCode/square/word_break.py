@@ -28,7 +28,7 @@ class Solution:
         return can_word_break(0)
 
 
-class Solution:
+class Solution1:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         # using bfs
         word_dict = set(wordDict)
@@ -46,3 +46,8 @@ class Solution:
                     q.append(end)
         return False        
         
+
+if __name__ == "__main__":
+    s = "leetcode"
+    wordDict = ["leet", "code"]
+    print(Solution1().wordBreak(s, wordDict=wordDict))

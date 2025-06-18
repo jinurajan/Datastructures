@@ -26,3 +26,9 @@ def longest_palindrome(pal_string):
         return length + 1
     else:
         return length
+
+
+
+if __name__ == "__main__":
+    str ="bob has a racecar"
+    longest_palindrome(str)
